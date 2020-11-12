@@ -1,0 +1,30 @@
+{
+  "name": "socialcosplayer",
+  "version": "1.0.0",
+  "description": "Api back cosplay socialnetwork",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "start-dev": "nodemon --exec babel-node  src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "nodemon": "^2.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProjectSocialCosplay/BackSocial.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ProjectSocialCosplay/BackSocial/issues"
+  },
+  "homepage": "https://github.com/ProjectSocialCosplay/BackSocial#readme"
+}
