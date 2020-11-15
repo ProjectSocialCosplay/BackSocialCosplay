@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 import {AuthenticationError} from "apollo-server-express";
+import 'regenerator-runtime/runtime';
 
 module.exports.genarateToken = (User) => {
     const date = Date.now();

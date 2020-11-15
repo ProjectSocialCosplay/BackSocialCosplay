@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const moogoseConnect = () =>{
-
     mongoose.Promise = global.Promise;
     mongoose.connect(process.env.DB_URL, {
         useUnifiedTopology: true,
