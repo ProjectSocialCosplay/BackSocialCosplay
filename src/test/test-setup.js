@@ -1,17 +1,20 @@
 const mongoose = require('mongoose')
+const { createTestClient } = require('apollo-server-testing');
+
 mongoose.set('useCreateIndex', true)
 mongoose.promise = global.Promise
 
+let db;
 
-async function removeAllCollections () {
-    const collections = Object.keys(mongoose.connection.collections)
-    for (const collectionName of collections) {
-        const collection = mongoose.connection.collections[collectionName]
-        await collection.deleteMany()
-    }
+const connectToDb = async () => {
+    db = await mongoose.connect(process.env.DB_URL, {
+         useUnifiedTopology: true,
+         useNewUrlParser: true,
+         useCreateIndex: true
+    }).then(() => console.log('connected to db')).catch(err => console.log('MongoDB error when connecting:' + err));
 }
 
-async function dropAllCollections () {
+const dropTestDb = async () => {
     const collections = Object.keys(mongoose.connection.collections)
     for (const collectionName of collections) {
         const collection = mongoose.connection.collections[collectionName]
@@ -27,22 +30,38 @@ async function dropAllCollections () {
         }
     }
 }
-module.exports = {
-    setupDB () {
-        // Connect to Mongoose
-        beforeAll(async () => {
-            const url = 'mongodb://db-SocialCosplay/SocialCosplayer-Test'
-            await mongoose.connect(url, { useNewUrlParser: true })
-        })
-        // Cleans up database between each test
-        afterEach(async () => {
-            await removeAllCollections()
-        })
 
-        // Disconnect Mongoose
-        afterAll(async () => {
-            await dropAllCollections()
-            await mongoose.connection.close()
-        })
+async function removeAllCollections () {
+    const collections = Object.keys(mongoose.connection.collections)
+    for (const collectionName of collections) {
+        const collection = mongoose.connection.collections[collectionName]
+        await collection.deleteMany()
     }
+}
+
+const closeDbConnection = async () => {
+    await mongoose.connection.close().catch(error => console.error(error));
+    await db.close();
+}
+const setupDB = () => {
+    // Connect to Mongoose
+    beforeAll(async () => {
+        await connectToDb()
+    })
+    // Cleans up database between each test
+    afterEach(async () => {
+        await removeAllCollections()
+    })
+
+    // Disconnect Mongoose
+    afterAll(async () => {
+       await closeDbConnection()
+    })
+}
+
+module.exports = {
+    connectToDb,
+    closeDbConnection,
+    dropTestDb,
+    setupDB
 }

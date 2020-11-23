@@ -5,7 +5,8 @@ const moogoseConnect = () =>{
         useUnifiedTopology: true,
         useNewUrlParser: true,
         useCreateIndex: true
-    }).then(() => console.log('connected to db')).catch(err => console.log('MongoDB error when connecting:' + err));
+    }).then(() => console.log('connected to db'))
+      .catch(err => console.log('MongoDB error when connecting:' + err));
 }
 
 

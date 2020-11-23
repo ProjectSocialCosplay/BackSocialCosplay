@@ -8,11 +8,11 @@
 
 
 */
-import {AuthenticationError} from 'apollo-server-express';
-import * as bcrypt from "bcrypt";
-import * as jwt from "../utils/jwt";
+const {AuthenticationError} = require ('apollo-server-express');
+const bcrypt = require ( "bcrypt");
+const jwt = require ("../utils/jwt");
 
-export default {
+module.exports = {
     Query: {
         user: async (parent, {id}, {models: {userModel}, me}, info) => {
             console.log('parent: '+parent)

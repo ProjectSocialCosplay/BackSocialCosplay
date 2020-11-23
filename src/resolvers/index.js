@@ -1,3 +1,3 @@
-import userResolvers from './userResolvers';
+const userResolvers = require('./userResolvers');
 
-export default [userResolvers];
+module.exports = [userResolvers];
