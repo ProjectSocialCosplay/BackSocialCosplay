@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-import {AuthenticationError} from "apollo-server-express";
+const  {AuthenticationError} = require("apollo-server-express");
 
 module.exports.genarateToken = (User) => {
     const date = Date.now();
@@ -14,8 +14,9 @@ module.exports.checkUser = async function (req) {
     const token = req.headers['token'];
     if (token) {
         try {
-            let authToken = parseAuthToken(token);
-            return await jwt.verify(authToken, process.env.TOKEN_SECRET);
+          //  let authToken = parseAuthToken(token);
+            console.log(token)
+            return await jwt.verify(token, process.env.TOKEN_SECRET);
         } catch (error) {
             console.log(error);
             throw new AuthenticationError('Your session expired. Sign in again.');

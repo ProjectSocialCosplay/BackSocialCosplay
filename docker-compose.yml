@@ -4,8 +4,6 @@ services:
     container_name: Back-SocialCosplay
     image: 'node:latest'
     working_dir: /home/node/app
-    environment:
-      - NODE_ENV=development
     command:
       - /bin/sh
       - '-c'
@@ -19,8 +17,8 @@ services:
     networks:
       - API_Networks
   mongo:
-    container_name: db-SocialCosplay
-    image: 'mongo:4.0.7'
+    container_name: dbsocial
+    image: 'mongo'
     ports:
       - '27017:27017'
     networks:
