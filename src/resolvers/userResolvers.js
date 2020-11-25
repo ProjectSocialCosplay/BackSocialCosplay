@@ -26,6 +26,7 @@ module.exports = {
             const user = await userModel.findById({_id: id}).exec();
             return user;
         },
+
         login: async (parent, {email, password}, {models: {userModel}}, info) => {
             const user = await userModel.findOne({email}).exec();
             if (!user) {
@@ -35,7 +36,9 @@ module.exports = {
             if (!matchPasswords) {
                 throw new AuthenticationError('Invalid credentials');
             }
-
+            if(!user._isAccountVerified){
+                throw new AuthenticationError('Account not confirmed');
+            }
             const token = jwt.genarateToken(user._id)
             return {
                 token
@@ -44,7 +47,6 @@ module.exports = {
     },
     Mutation: {
         createUser: async (parent, {pseudo, email, password, birthdate}, {models: {userModel}}, info) => {
-
             return await userModel.create({pseudo, email, password, birthdate});
         },
    },
