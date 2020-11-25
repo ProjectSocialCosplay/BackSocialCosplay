@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const { createTestClient } = require('apollo-server-testing');
-
 mongoose.set('useCreateIndex', true)
 mongoose.promise = global.Promise
 
@@ -13,7 +12,6 @@ const connectToDb = async () => {
          useCreateIndex: true
     }).then(() => console.log('connected to db')).catch(err => console.log('MongoDB error when connecting:' + err));
 }
-
 const dropTestDb = async () => {
     const collections = Object.keys(mongoose.connection.collections)
     for (const collectionName of collections) {
@@ -30,7 +28,6 @@ const dropTestDb = async () => {
         }
     }
 }
-
 async function removeAllCollections () {
     const collections = Object.keys(mongoose.connection.collections)
     for (const collectionName of collections) {
@@ -38,25 +35,28 @@ async function removeAllCollections () {
         await collection.deleteMany()
     }
 }
-
 const closeDbConnection = async () => {
     await mongoose.connection.close().catch(error => console.error(error));
     await db.close();
 }
+
 const setupDB = () => {
+
     // Connect to Mongoose
     beforeAll(async () => {
         await connectToDb()
     })
+
     // Cleans up database between each test
     afterEach(async () => {
-        await removeAllCollections()
     })
 
     // Disconnect Mongoose
     afterAll(async () => {
+       await removeAllCollections()
        await closeDbConnection()
     })
+
 }
 
 module.exports = {
