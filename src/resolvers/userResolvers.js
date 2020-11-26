@@ -1,16 +1,6 @@
-/*   extend type Query {
-        user(id: ID!): User!
-        login(email: String!, password: String!): Token!
-   }
-   extend type Mutation {
-        createUser(email: String!, password: String!): User!
-   }
-
-
-*/
-const {AuthenticationError} = require ('apollo-server-express');
-const bcrypt = require ( "bcrypt");
-const jwt = require ("../utils/jwt");
+import {AuthenticationError} from 'apollo-server-express'
+import bcrypt from "bcrypt"
+import jwt from "../utils/jwt"
 
 module.exports = {
     Query: {
@@ -23,8 +13,7 @@ module.exports = {
             if (!me) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            const user = await userModel.findById({_id: id}).exec();
-            return user;
+            return await userModel.findById({_id: id}).exec();
         },
 
         login: async (parent, {email, password}, {models: {userModel}}, info) => {

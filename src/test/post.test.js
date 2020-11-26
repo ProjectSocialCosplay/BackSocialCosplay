@@ -5,7 +5,7 @@ const request = supertest(app)
 const {setupDB} = require('./test-setup')
 
 describe('Post Description', () => {
-    setupDB()
+
     it('insert new description', async (done) => {
         const query = ` mutation {
              createDescription(description: "test") {

@@ -1,3 +1,3 @@
-const userResolvers = require('./userResolvers');
+import userResolvers from './userResolvers'
 
 module.exports = [userResolvers];

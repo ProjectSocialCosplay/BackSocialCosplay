@@ -5,10 +5,15 @@
   "main": "src/index.js",
   "scripts": {
     "start-prod": "node src/index.js",
-    "start-dev": "NODE_ENV=development  nodemon src/index.js",
-    "test": "NODE_ENV=test  jest --testEnvironment=node --verbose --forceExit --watchAll --maxWorkers=1"
+    "start-dev": "NODE_ENV=development nodemon --exec babel-node src/index.js",
+    "test": "NODE_ENV=test  jest babel-jest @babel/preset-env --testEnvironment=node --verbose --forceExit --watchAll --maxWorkers=1"
   },
   "dependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/register": "^7.0.0",
+    "babel-jest": "^26.6.3",
     "apollo-server": "2.19.0",
     "apollo-server-express": "^2.19.0",
     "bcrypt": "^5.0.0",

@@ -1,14 +1,15 @@
-const dotenv = require('dotenv');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const express = require('express');
-const {ApolloServer, ApolloError} = require('apollo-server-express');
-const schemas = require('./schemas');
-const resolvers = require('./resolvers');
-const mongodbconfig = require('./config/db')
-const jwt = require('./utils/jwt');
-const {uuid} = require('./utils/tools')
-const userModel = require('./models/userModel');
+import dotenv from 'dotenv'
+import cors from 'cors'
+import bodyParser from 'body-parser'
+import express from 'express'
+import {ApolloServer, ApolloError} from 'apollo-server-express'
+import schemas from './schemas'
+import resolvers from './resolvers'
+import mongodbconfig from './config/db'
+import jwt from './utils/jwt';
+import {uuid} from './utils/tools'
+import userModel from './models/userModel';
+
 dotenv.config({
     path: `./.env.${process.env.NODE_ENV}`
 });
@@ -59,7 +60,7 @@ app.listen(process.env.PORT, () => {
 });
 
 
-module.exports = {
+export {
     app,
     server
 };
