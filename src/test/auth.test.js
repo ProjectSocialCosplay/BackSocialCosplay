@@ -1,12 +1,4 @@
-const {gql} = require('apollo-server-express');
-const {app, server} = require('../index')
-const supertest = require("supertest");
-const request = supertest(app)
-const {setupDB} = require('./test-setup')
-
-
-describe('User register', () => {
-    setupDB()
+export const userRegister = (request) => {
     it('insert user with empty pseudo', async (done) => {
         const query = ` mutation {
              createUser(password: "test", email: "tt@gmail.com", birthdate: "1930-11-12" ) {
@@ -23,7 +15,6 @@ describe('User register', () => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(400)
-                console.log(res)
                 expect(res.errors[0].message).toBe('Field "createUser" argument "pseudo" of type "String!" is required, but it was not provided.');
                 done();
             });
@@ -63,7 +54,6 @@ describe('User register', () => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(400)
-                console.log(res)
                 expect(res.errors[0].message).toBe('Field "createUser" argument "password" of type "String!" is required, but it was not provided.');
                 done();
             });
@@ -83,7 +73,6 @@ describe('User register', () => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-                console.log(res)
                 expect(res.errors[0].message).toBe('user validation failed: email: testgmail.com is not a valid email format');
                 done();
             });
@@ -103,7 +92,6 @@ describe('User register', () => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-                console.log(res)
                 expect(res.errors[0].message).toBe('user validation failed: email: test@gmail is not a valid email format');
                 done();
             });
@@ -123,7 +111,6 @@ describe('User register', () => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-                console.log(res)
                 expect(res.errors[0].message).toBe('user validation failed: email: @gmail.com is not a valid email format');
                 done();
             });
@@ -145,7 +132,6 @@ describe('User register', () => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
                 expect(res.data.createUser.pseudo).toBe("ttt");
-                console.log(res.data.createUser._id)
                 expect(res.data.createUser.email).toBe("test@gmail.com");
                 done();
             });
@@ -170,10 +156,8 @@ describe('User register', () => {
                 done();
             });
     },);
-})
-
-describe('User Authentification', () => {
-    setupDB()
+}
+export const userAuth = (request) => {
     it('insert user', async (done) => {
         const query = ` mutation {
                               createUser( pseudo: "ttt", password: "test", email: "test@gmail.com", birthdate: "1930-11-12" ) {
@@ -191,7 +175,6 @@ describe('User Authentification', () => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
                 expect(res.data.createUser.pseudo).toBe("ttt");
-                console.log(res.data.createUser._id)
                 expect(res.data.createUser.email).toBe("test@gmail.com");
                 done();
             });
@@ -227,7 +210,6 @@ describe('User Authentification', () => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-
                 expect(res.errors[0].message).toBe('Invalid credentials')
                 done();
             });
@@ -245,7 +227,6 @@ describe('User Authentification', () => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-
                 expect(res.errors[0].message).toBe('Invalid credentials')
                 done();
             });
@@ -263,7 +244,6 @@ describe('User Authentification', () => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-
                 expect(res.errors[0].message).toBe('Invalid credentials')
                 done();
             });
@@ -281,7 +261,6 @@ describe('User Authentification', () => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-                console.log(res.errors[0].message)
                 expect(res.errors[0].message).toBe('Account not confirmed')
                 done();
             });
@@ -307,4 +286,4 @@ describe('User Authentification', () => {
             });
     },);
 
-})
+}

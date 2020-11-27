@@ -1,10 +1,4 @@
-const {gql} = require('apollo-server-express');
-const {app, server} = require('../index')
-const supertest = require("supertest");
-const request = supertest(app)
-const {setupDB} = require('./test-setup')
-
-describe('Post Description', () => {
+export const postDescription = (request) => {
 
     it('insert new description', async (done) => {
         const query = ` mutation {
@@ -27,4 +21,4 @@ describe('Post Description', () => {
                 done();
             });
     },);
-})
+}

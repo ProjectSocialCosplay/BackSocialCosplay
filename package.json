@@ -6,7 +6,7 @@
   "scripts": {
     "start-prod": "node src/index.js",
     "start-dev": "NODE_ENV=development nodemon --exec babel-node src/index.js",
-    "test": "NODE_ENV=test  jest babel-jest @babel/preset-env --testEnvironment=node --verbose --forceExit --watchAll --maxWorkers=1"
+    "test": "NODE_ENV=test  jest  --testEnvironment=node --verbose --forceExit --watchAll --maxWorkers=1 src/test/index.test.js"
   },
   "dependencies": {
     "@babel/core": "^7.1.6",
