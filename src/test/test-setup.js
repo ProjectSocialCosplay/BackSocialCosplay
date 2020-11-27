@@ -9,7 +9,7 @@ const connectToDb = async () => {
          useUnifiedTopology: true,
          useNewUrlParser: true,
          useCreateIndex: true
-    }).then(() => console.log('connected to db')).catch(err => console.log('MongoDB error when connecting:' + err));
+    }).catch(err => console.log('MongoDB error when connecting:' + err));
 }
 const dropTestDb = async () => {
     const collections = Object.keys(mongoose.connection.collections)

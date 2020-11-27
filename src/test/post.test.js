@@ -16,7 +16,6 @@ export const postDescription = (request) => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(400)
-                console.log(res)
                 expect(res.errors[0].message).toBe('A description is required, but it was not provided.');
                 done();
             });

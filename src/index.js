@@ -43,7 +43,7 @@ const server = new ApolloServer({
         }
     },
     formatError(err) {
-        console.log(uuid() +": " + err.message)
+      //  console.log(uuid() +": " + err.message)
         return {
             message: err.message,
         };
@@ -55,12 +55,11 @@ server.applyMiddleware({app, path: '/graphql'});
 
 mongodbconfig.moogoseConnect()
 
-app.listen(process.env.PORT, () => {
+let appServ = app.listen(process.env.PORT, () => {
     console.log(`🚀 Server listening on port ${process.env.PORT}`);
 });
 
-
 export {
-    app,
+    appServ,
     server
 };
