@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-express');
+const {gql} = require('apollo-server-express');
 
-module.exports = gql`
+export default gql`
     type User {
         _id: ID!
         _isActive: Boolean!
@@ -10,24 +10,28 @@ module.exports = gql`
         birthdate: Date
         create_at: Date!
         bio: String
-        #posts: [Post]
+        posts: [Post!]!
+        profile_image_url: Photo!
     }
-    
+
     type Token {
         token: String!
     }
-
-   extend type Query {
+    
+    extend type Query {
+        # get Info user with Id
         user(id: ID!): User!
         login(email: String!, password: String!): Token!
-   }
-   extend type Mutation {
+    }
+    
+    extend type Mutation {
         createUser(
-            pseudo: String!, 
-            email: String!, 
+            pseudo: String!,
+            email: String!,
             password: String!,
             birthdate: Date,
+            profile_image_url: String
         ): User!
-       
-   }
+    }
+    
 `;

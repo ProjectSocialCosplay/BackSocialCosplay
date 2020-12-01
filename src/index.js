@@ -1,21 +1,24 @@
-const dotenv = require('dotenv');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const express = require('express');
-const {ApolloServer, ApolloError} = require('apollo-server-express');
-const schemas = require('./schemas');
-const resolvers = require('./resolvers');
-const mongodbconfig = require('./config/db')
-const jwt = require('./utils/jwt');
-const {uuid} = require('./utils/tools')
-const userModel = require('./models/userModel');
+import dotenv from 'dotenv'
+import cors from 'cors'
+import bodyParser from 'body-parser'
+import express from 'express'
+import {ApolloServer, ApolloError} from 'apollo-server-express'
+import jwt from './utils/jwt';
+import {uuid} from './utils/tools'
+import mongodbconfig from './config/db'
+
+import schemas from './schemas'
+import resolvers from './resolvers'
+
+import userModel from './models/userModel';
+import postModel from './models/postModel';
+
 dotenv.config({
     path: `./.env.${process.env.NODE_ENV}`
 });
 
 const app = express();
-
-app.use(bodyParser.urlencoded({extended: false}));
+//app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(
     cors({
@@ -32,18 +35,20 @@ const server = new ApolloServer({
     resolvers,
     context: async ({req})=>{
         if(req){
-            const me = await jwt.checkUser(req)
+            const userInfo = await jwt.checkUser(req)
             return {
-                me,
+                userInfo,
                 models: {
-                    userModel
-                }
+                    userModel,
+                    postModel
+                },
             };
         }
     },
     formatError(err) {
         console.log(uuid() +": " + err.message)
         return {
+           // ErrorEventId: uuid(),
             message: err.message,
         };
     }
@@ -54,12 +59,11 @@ server.applyMiddleware({app, path: '/graphql'});
 
 mongodbconfig.moogoseConnect()
 
-app.listen(process.env.PORT, () => {
+const appServ = app.listen(process.env.PORT, () => {
     console.log(`🚀 Server listening on port ${process.env.PORT}`);
 });
 
-
-module.exports = {
-    app,
+export {
+    appServ,
     server
 };

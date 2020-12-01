@@ -4,13 +4,12 @@ mongoose.set('useCreateIndex', true)
 mongoose.promise = global.Promise
 
 let db;
-
 const connectToDb = async () => {
     db = await mongoose.connect(process.env.DB_URL, {
          useUnifiedTopology: true,
          useNewUrlParser: true,
          useCreateIndex: true
-    }).then(() => console.log('connected to db')).catch(err => console.log('MongoDB error when connecting:' + err));
+    }).catch(err => console.log('MongoDB error when connecting:' + err));
 }
 const dropTestDb = async () => {
     const collections = Object.keys(mongoose.connection.collections)
@@ -28,7 +27,7 @@ const dropTestDb = async () => {
         }
     }
 }
-async function removeAllCollections () {
+const  removeAllCollections =  async () => {
     const collections = Object.keys(mongoose.connection.collections)
     for (const collectionName of collections) {
         const collection = mongoose.connection.collections[collectionName]
@@ -40,28 +39,9 @@ const closeDbConnection = async () => {
     await db.close();
 }
 
-const setupDB = () => {
-
-    // Connect to Mongoose
-    beforeAll(async () => {
-        await connectToDb()
-    })
-
-    // Cleans up database between each test
-    afterEach(async () => {
-    })
-
-    // Disconnect Mongoose
-    afterAll(async () => {
-       await removeAllCollections()
-       await closeDbConnection()
-    })
-
-}
-
 module.exports = {
     connectToDb,
     closeDbConnection,
     dropTestDb,
-    setupDB
+    removeAllCollections
 }

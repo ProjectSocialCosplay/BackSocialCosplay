@@ -1,3 +1,5 @@
-const userResolvers = require('./userResolvers');
+import userResolvers from './userResolvers'
+import postResolver  from "./postResolvers";
 
-module.exports = [userResolvers];
+
+export default  [userResolvers, postResolver];
