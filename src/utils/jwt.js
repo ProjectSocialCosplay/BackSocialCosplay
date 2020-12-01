@@ -15,7 +15,6 @@ module.exports.checkUser = async function (req) {
     if (token) {
         try {
           //  let authToken = parseAuthToken(token);
-            console.log(token)
             return await jwt.verify(token, process.env.TOKEN_SECRET);
         } catch (error) {
             console.log(error);

@@ -1,19 +1,16 @@
 import {AuthenticationError} from 'apollo-server-express'
 import bcrypt from "bcrypt"
 import jwt from "../utils/jwt"
+import {uploadFiles} from "../utils/azureStorage";
 
-module.exports = {
+export default {
     Query: {
-        user: async (parent, {id}, {models: {userModel}, me}, info) => {
-            console.log('parent: '+parent)
-            console.log('id: '+id)
-            console.log('userMOdel: ',userModel)
-            console.log('me: ',me)
-
-            if (!me) {
+        user: async (parent, {id}, {models: {userModel}, userInfo}, info) => {
+            console.log(userInfo)
+            if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await userModel.findById({_id: id}).exec();
+            return await userModel.findById({_id: id}).exec()
         },
 
         login: async (parent, {email, password}, {models: {userModel}}, info) => {
@@ -25,9 +22,10 @@ module.exports = {
             if (!matchPasswords) {
                 throw new AuthenticationError('Invalid credentials');
             }
+            /*
             if(!user._isAccountVerified){
                 throw new AuthenticationError('Account not confirmed');
-            }
+            }*/
             const token = jwt.genarateToken(user._id)
             return {
                 token
@@ -35,15 +33,29 @@ module.exports = {
         },
     },
     Mutation: {
-        createUser: async (parent, {pseudo, email, password, birthdate}, {models: {userModel}}, info) => {
-            return await userModel.create({pseudo, email, password, birthdate});
+        createUser: async (parent, {pseudo, email, password, birthdate, profile_image_url}, {models: {userModel}}, info) => {
+            // TODO debug result
+            if(profile_image_url){
+
+                try{
+                    const uplaodImage = await uploadFiles(profile_image_url, 'profile_image')
+                    console.log(uplaodImage)
+                    /*
+                    if(!uplaodImage.secureURL){
+                        throw new Error("Something went wrong while uploading image")
+                    }
+                    */
+                }catch (e){
+                    console.log(e)
+                    throw new Error("Something went wrong while uploading image")
+                }
+            }
+            return await userModel.create({pseudo, email, password, birthdate, profile_image_url});
         },
-   },
-    /*
+    },
     User: {
         posts: async ({id}, args, {models: {postModel}}, info) => {
-            const posts = await postModel.find({author: id}).exec();
-            return posts;
+            return await postModel.find({author: id}).exec();
         },
-    },*/
+    },
 };

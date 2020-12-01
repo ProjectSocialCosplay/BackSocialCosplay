@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 const uniqueValidator = require("mongoose-unique-validator");
 
 const userSchema = new mongoose.Schema({
@@ -51,12 +52,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    posts: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'post',
-        },
-    ],
+    profile_image_url: {
+        type: String,
+        default: 'default_profile_image',
+    },
     dateUpdate: {
         type: Date,
         default: Date.now()
@@ -66,10 +65,10 @@ const userSchema = new mongoose.Schema({
 userSchema.plugin(uniqueValidator, {message: 'is already taken'});
 
 userSchema.pre('save', function () {
-    const hashedPassword = bcrypt.hashSync(this.password, 12);
-    this.password = hashedPassword;
+    this.password = bcrypt.hashSync(this.password, 12);
 });
 
-const user = mongoose.model('user', userSchema);
+const user = mongoose.model('User', userSchema);
 
-module.exports = user;
+export default user;
+

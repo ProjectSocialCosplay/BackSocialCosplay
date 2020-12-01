@@ -1,22 +1,17 @@
-const mongoose = require('mongoose')
-
+import mongoose from 'mongoose';
 
 const postSchema = new mongoose.Schema({
-
-    description: {
+    content: {
         type: String,
+        required: true,
+        minLength: [255, 'Post is too long'],
     },
-    _id_author: {
+    author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'user',
     },
-    created_at: {
-        type: Date,
-        default: Date.now()
-    }
-
 });
 
 const post = mongoose.model('post', postSchema);
 
-module.exports = post;
+export default post;

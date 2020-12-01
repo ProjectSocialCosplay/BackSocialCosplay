@@ -1,11 +1,12 @@
-const { gql } = require('apollo-server-express');
-
+const { gql } = require('apollo-server');
 import userSchema from './userSchema';
 import postSchema from './postSchema';
+import photoSchema from "./photoSchema";
 
 const linkSchema = gql`
     scalar Date
-    type Query {
+    
+    type Query {    
         _: Boolean
     }
     type Mutation {
@@ -13,4 +14,4 @@ const linkSchema = gql`
     }
 `;
 
-export default [linkSchema, userSchema, postSchema];
+export default [linkSchema, userSchema, postSchema, photoSchema];

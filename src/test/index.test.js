@@ -9,7 +9,6 @@ const {userRegister, userAuth} = require('./auth.test')
 const {postDescription} = require('./post.test')
 
 describe('Init Test', ()=>{
-
     // Connect to Mongoose
     beforeAll(async () => {
         await connectToDb()
@@ -18,8 +17,6 @@ describe('Init Test', ()=>{
 
     // Cleans up database between each test
     afterEach(async () => {
-        await removeAllCollections()
-        appServ.close()
     })
 
     // Disconnect Mongoose
@@ -30,7 +27,7 @@ describe('Init Test', ()=>{
 
     describe('User register', ()=>{userRegister(request)})
     describe('User Auth', ()=>{userAuth(request)})
-    describe('PostDescription', ()=>{postDescription(request)})
+    describe('Post', ()=>{postDescription(request)})
 
 })
 

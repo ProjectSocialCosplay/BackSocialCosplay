@@ -39,7 +39,6 @@ const closeDbConnection = async () => {
     await db.close();
 }
 
-
 module.exports = {
     connectToDb,
     closeDbConnection,

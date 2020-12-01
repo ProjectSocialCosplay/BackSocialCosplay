@@ -1,12 +1,13 @@
 export const postDescription = (request) => {
 
-    it('insert new description', async (done) => {
+    it('Create Post not authenticated', async (done) => {
         const query = ` mutation {
-             createDescription(description: "test") {
-                        created_at
-                        _id_author
-                        _id
-                        }}`;
+             createPost(content: "test") {
+                        content
+                        author{
+                            email
+                        }
+             }}`;
 
         request
             .post('/graphql')
@@ -15,8 +16,32 @@ export const postDescription = (request) => {
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
-                expect(response.status).toBe(400)
-                expect(res.errors[0].message).toBe('A description is required, but it was not provided.');
+                expect(response.status).toBe(200)
+                expect(res.errors[0].message).toBe('You are not authenticated');
+                done();
+            });
+    },);
+
+    it('Create Post', async (done) => {
+        const query = ` mutation {
+             createPost(content: "test") {
+                        content
+                        author{
+                            email
+                        }
+             }}`;
+        request
+            .post('/graphql')
+            .set('Content-Type', 'application/json')
+            .set('Authorization')
+            .set('Accept', '*/*')
+            .send({query})
+            .then(response => {
+                let res = JSON.parse(response.text)
+                expect(response.status).toBe(200)
+                console.log(res)
+                expect(res.errors[0].message).toBe('You are not authenticated');
+
                 done();
             });
     },);

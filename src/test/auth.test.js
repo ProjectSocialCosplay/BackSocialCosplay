@@ -1,6 +1,6 @@
 export const userRegister = (request) => {
     it('insert user with empty pseudo', async (done) => {
-           request
+        request
             .post('/graphql')
             .set('Content-Type', 'application/json')
             .set('Accept', '*/*')
@@ -68,7 +68,7 @@ export const userRegister = (request) => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-                expect(res.errors[0].message).toBe('user validation failed: email: testgmail.com is not a valid email format');
+                expect(res.errors[0].message).toBe('User validation failed: email: testgmail.com is not a valid email format');
                 done();
             });
     },);
@@ -87,7 +87,7 @@ export const userRegister = (request) => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-                expect(res.errors[0].message).toBe('user validation failed: email: test@gmail is not a valid email format');
+                expect(res.errors[0].message).toBe('User validation failed: email: test@gmail is not a valid email format');
                 done();
             });
     },);
@@ -106,7 +106,7 @@ export const userRegister = (request) => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-                expect(res.errors[0].message).toBe('user validation failed: email: @gmail.com is not a valid email format');
+                expect(res.errors[0].message).toBe('User validation failed: email: @gmail.com is not a valid email format');
                 done();
             });
     },);
@@ -131,46 +131,13 @@ export const userRegister = (request) => {
                 done();
             });
     },);
-    it('email and pseudo is already use', async (done) => {
-        request
-            .post('/graphql')
-            .set('Content-Type', 'application/json')
-            .set('Accept', '*/*')
-            .send({
-                query: "mutation { createUser( pseudo: \"ttt\", password: \"test\", email: \"test@gmail.com\", birthdate: \"1930-11-12\" ) { pseudo email _id }}"
-            })
-            .then(response => {
-                let res = JSON.parse(response.text)
-                console.log(res)
-                expect(res.data.createUser.pseudo).toBe("ttt");
-                expect(res.data.createUser.email).toBe("test@gmail.com");
-            }).then(()=> {
-            request
-                .post('/graphql')
-                .set('Content-Type', 'application/json')
-                .set('Accept', '*/*')
-                .send({
-                    query: "mutation { createUser( pseudo: \"ttt\", password: \"test\", email: \"test@gmail.com\", birthdate: \"1930-11-12\" ) { pseudo email _id }}"
-                })
-                .then(response => {
-
-                    let res = JSON.parse(response.text)
-                    expect(response.status).toBe(200)
-                    expect(res.errors[0].message).toBe("user validation failed: pseudo: is already taken, email: is already taken");
-                    done();
-                });
-        })
-    },);
-}
-export const userAuth = (request) => {
-    it('insert user', async (done) => {
+    it('email is already use', async (done) => {
         const query = ` mutation {
-                              createUser( pseudo: "ttt", password: "test", email: "test@gmail.com", birthdate: "1930-11-12" ) {
-                                    pseudo
-                                    email
-                                    _id
+             createUser( pseudo: "ttt", password: "test", email: "test@gmail.com", birthdate: "1930-11-12" ) {
+                        pseudo
+                        email
+                        _id
                         }}`;
-
         request
             .post('/graphql')
             .set('Content-Type', 'application/json')
@@ -179,11 +146,12 @@ export const userAuth = (request) => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-                expect(res.data.createUser.pseudo).toBe("ttt");
-                expect(res.data.createUser.email).toBe("test@gmail.com");
+                expect(res.errors[0].message).toBe("User validation failed: email: is already taken, pseudo: is already taken");
                 done();
             });
-    },);
+    })
+}
+export const userAuth = (request) => {
     it('Authentication Email Error', async (done) => {
         const query = ` query {
                             login( password: "test", email: "testgmail.com") {
@@ -253,7 +221,7 @@ export const userAuth = (request) => {
                 done();
             });
     },);
-     //TODO fonction confirmation email
+    //TODO fonction confirmation email
     it('unconfirmed authentication', async (done) => {
 
         const query = ` query {
@@ -265,38 +233,34 @@ export const userAuth = (request) => {
             .post('/graphql')
             .set('Content-Type', 'application/json')
             .set('Accept', '*/*')
-            .send({
-                query: "mutation { createUser( pseudo: \"ttt\", password: \"test\", email: \"test@gmail.com\", birthdate: \"1930-11-12\" ) { pseudo email _id }}"
-            })
-            .then(response => {
-                let res = JSON.parse(response.text)
+            .send({query})
+            .then(query => {
+                let res = JSON.parse(query.text)
                 console.log(res)
-                expect(res.data.createUser.pseudo).toBe("ttt");
-                expect(res.data.createUser.email).toBe("test@gmail.com");
-            }).then(()=>{
-            request
-                .post('/graphql')
-                .set('Content-Type', 'application/json')
-                .set('Accept', '*/*')
-                /*.send(` query {
-                                login( password: "test", email: "test@gmail.com") {
-                                                                  token
-                }}`)*/
-                .send({query})
-                .then(query => {
-                    let res = JSON.parse(query.text)
-                    console.log(res)
-                    //let res = JSON.parse(query.text)
-                    //expect(query.status).toBe(200)
+                //let res = JSON.parse(query.text)
+                //expect(query.status).toBe(200)
 
-                    expect(res.errors[0].message).toBe("Account not confirmed")
-                    done();
-                });
-        });
-
-
-
-
+                expect(res.errors[0].message).toBe("Account not confirmed")
+                done();
+            });
     },);
+    it('authentication', async (done) => {
 
+        const query = ` query {
+                            login( password: "test", email: "test@gmail.com") {
+                               token
+                            }}`;
+        request
+            .post('/graphql')
+            .set('Content-Type', 'application/json')
+            .set('Accept', '*/*')
+            .send({query})
+            .then(query => {
+                let res = JSON.parse(query.text)
+                //let res = JSON.parse(query.text)
+                //expect(query.status).toBe(200)
+                expect(res.data.token).not.toBeNull();
+                return(res.data.token)
+            });
+    },);
 }
