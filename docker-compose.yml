@@ -1,0 +1,28 @@
+version: '3.6'
+services:
+  node:
+    container_name: Back-SocialCosplay
+    image: 'node:latest'
+    working_dir: /home/node/app
+    command:
+      - /bin/sh
+      - '-c'
+      - 'npm install && npm run start-dev'
+    links:
+      - mongo
+    ports:
+      - '7000:7000'
+    volumes:
+      - './:/home/node/app'
+    networks:
+      - API_Networks
+  mongo:
+    container_name: dbsocial
+    image: 'mongo'
+    ports:
+      - '27017:27017'
+    networks:
+      - API_Networks
+networks:
+  API_Networks:
+    driver: bridge
