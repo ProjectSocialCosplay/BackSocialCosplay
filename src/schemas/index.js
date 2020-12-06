@@ -2,6 +2,7 @@ const { gql } = require('apollo-server');
 import userSchema from './userSchema';
 import postSchema from './postSchema';
 import photoSchema from "./photoSchema";
+import commentSchema from './commentSchema';
 
 const linkSchema = gql`
     scalar Date
@@ -14,4 +15,4 @@ const linkSchema = gql`
     }
 `;
 
-export default [linkSchema, userSchema, postSchema, photoSchema];
+export default [linkSchema, userSchema, postSchema, photoSchema, commentSchema];
