@@ -4,9 +4,12 @@ export default  gql`
   type Comment {
     id: ID!
     comment: String!
-    author: ID
-    post: ID
-    createdAt: String
+    post: ID!
+    createdAt: String!
+  }
+
+  type deleteComment {
+    message: String!
   }
 
   extend type Query {
@@ -17,7 +20,7 @@ export default  gql`
     comments: [Comment]!
 }
   extend type Mutation {
-    createComment(comment: String!,  author: ID!,  postId: ID! ): Comment
-    deleteComment(id: ID!): Comment
+    createComment(comment: String!, postId: ID! ): Comment
+    deleteComment(commentId: ID!): deleteComment
   }
 `;

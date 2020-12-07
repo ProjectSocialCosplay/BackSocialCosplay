@@ -12,15 +12,15 @@ export default {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await postModel.find({author: me._id}).exec();
+            return await postModel.find({author: userInfo._id}).exec();
         },
     },
     Mutation: {
-        createPost: async (parent, { title, content }, { models: { postModel }, userInfo }, info) => {
+        createPost: async (parent, { content }, { models: { postModel }, userInfo }, info) => {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await postModel.create({title, content, author: userInfo._id});
+            return await postModel.create({content, author: userInfo._id});
         },
 
         deletePost: async (parent, { id }, { models: { postModel }, userInfo }, info) => {
