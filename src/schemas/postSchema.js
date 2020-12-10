@@ -2,17 +2,18 @@ import { gql } from 'apollo-server';
 
 export default gql`
     type Post {
-        id: ID!
+        _id: ID!
         content: String!
         author: User!
+        comment: [Comment]
     }
 
     extend type Query {
         # Get user Post
-        post(id: ID!): [Post]!
+        getPostWithUserId(id: ID!): [Post]!
         
         #Get User 
-        posts: [Post]!
+        getAllPost: [Post]!
     }
 
     extend type Mutation {

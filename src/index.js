@@ -20,7 +20,6 @@ dotenv.config({
 
 const app = express();
 //app.use(bodyParser.urlencoded({extended: false}));
-
 app.use(
     cors({
         credentials: true,
@@ -48,7 +47,9 @@ const server = new ApolloServer({
         }
     },
     formatError(err) {
-        console.log(uuid() +": " + err.message)
+        if(process.env.NODE_ENV !=='test'){
+            console.log(uuid() +": " + err.message)
+        }
         return {
            // ErrorEventId: uuid(),
             message: err.message,

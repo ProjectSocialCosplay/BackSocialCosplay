@@ -1,26 +1,25 @@
-import { gql } from 'apollo-server';
+import {gql} from 'apollo-server';
 
-export default  gql`
-  type Comment {
-    id: ID!
-    comment: String!
-    post: ID!
-    createdAt: String!
-  }
+export default gql`
+    type Comment {
+        _id: ID!
+        comment: String!
+        post: Post!
+        createdAt: String!
+        author: User!
+    }
 
-  type deleteComment {
-    message: String!
-  }
+    type deleteComment {
+        message: String!
+    }
 
-  extend type Query {
-    # Get user Comment
-    comment(id: ID!): [Comment]!
-    
-    #Get User 
-    comments: [Comment]!
-}
-  extend type Mutation {
-    createComment(comment: String!, postId: ID! ): Comment
-    deleteComment(commentId: ID!): deleteComment
-  }
+    extend type Query {
+        # Get user Comment
+        getCommentPost(id: ID!): [Comment]!
+
+    }
+    extend type Mutation {
+        createComment(comment: String!, postId: ID! ): Comment
+        deleteComment(commentId: ID!): deleteComment
+    }
 `;

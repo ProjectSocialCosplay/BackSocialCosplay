@@ -4,7 +4,8 @@ const moogoseConnect = () =>{
     mongoose.connect(process.env.DB_URL, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        useCreateIndex: true
+        useCreateIndex: true,
+        useFindAndModify: false
     }).then(() => console.log('connected to db'))
       .catch(err => console.log('MongoDB error when connecting:' + err));
 }

@@ -2,35 +2,42 @@ import {AuthenticationError} from 'apollo-server';
 
 export default {
     Query: {
-
-        comment: async (parent, { id }, { models: { commentModel }, userInfo }, info) => {
+        getCommentPost: async (parent, {id}, {models: {commentModel}, userInfo}, info) => {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await commentModel.find({author: id}).exec()
-        },
-        comments: async (parent, args, { models: { commentModel }, userInfo }, info) => {
-            if (!userInfo) {
-                throw new AuthenticationError('You are not authenticated');
-            }
-            return await commentModel.find({author: userInfo._id}).exec();
-        },
+            return await commentModel.find({post: id}).exec()
+        }
     },
     Mutation: {
-        createComment: async (root, { comment, postId } ,  {models: { commentModel } }, userInfo) => {
-            return await commentModel.create({comment, post: postId, author: userInfo._id});
+        createComment: async (root, {comment, postId}, {models: {postModel, commentModel}, userInfo}) => {
+            let author = userInfo._id
+            let post = postId;
+            let data = new commentModel({comment, post, author})
+            await commentModel.create(data)
+            await postModel.findOneAndUpdate({_id: postId}, {$push: {comments: data._id}}).catch((e) => {
+                console.log(e)
+                throw new Error(e.message)
+            })
+            return data
         },
-        deleteComment: async (root, { commentId  }, {models: { commentModel } }, userInfo) => {
-            const filter = {_id:commentId}
-            const message = {"message":"Deleted !"}
-            commentModel.deleteOne(filter).then(() => {
-                console.log("OKEEEYY")
-                return {message}
-            }).catch((error)=> {
-                console.log(error);
-                throw new Error("Cannot Delete")
-            });
+
+        deleteComment: async (root, {commentId}, {models: {postModel, commentModel}, userInfo}) => {
+            const comment = await commentModel.findByIdAndRemove(commentId)
+
+            // Delete like from post collection
+            let data = await postModel.findOneAndUpdate({ _id: comment.post }, { $pull: { comments: commentId}});
+            return {message: 'Comment deleted.'};
         },
-    }
-  };
+
+    },
+    Comment: {
+        author: async (parent, arg, {models: {userModel}, userInfo}, info) => {
+            return await userModel.findOne({_id: userInfo._id}).exec()
+        },
+        post: async (parent, arg, {models: {postModel}}, info) => {
+            return await postModel.findOne({_id: parent.post}).exec()
+        },
+    },
+};
   
