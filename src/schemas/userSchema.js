@@ -29,6 +29,7 @@ export default gql`
     extend type Query {
         # get Info user with Id
         user(id: ID!): User!
+        getAuthUser: User!
         login(email: String!, password: String!): Token!
     }
     

@@ -13,6 +13,13 @@ export default {
             return await userModel.findById({_id: id}).exec()
         },
 
+        getAuthUser: async (parent, {id}, {models: {userModel}, userInfo}, info) => {
+            if (!userInfo) {
+                throw new AuthenticationError('You are not authenticated');
+            }
+            return await userModel.findById({_id: userInfo._id}).exec()
+        },
+
         login: async (parent, {email, password}, {models: {userModel}}, info) => {
             const user = await userModel.findOne({email}).exec();
             if (!user) {
