@@ -6,14 +6,14 @@ export default {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await postModel.find({author: id}).exec()
+            return await postModel.find({author: id}).sort({updatedAt: -1}).exec()
         },
 
         getAllPost: async (parent, args, { models: { postModel }, userInfo }, info) => {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await postModel.find({author: userInfo._id}).exec()
+            return await postModel.find({author: userInfo._id}).sort({updatedAt: -1}).exec()
         },
     },
     Mutation: {

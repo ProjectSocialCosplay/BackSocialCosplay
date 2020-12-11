@@ -14,6 +14,7 @@ export default gql`
         profile_image_url: Photo!
         comment: [comment]
     }
+    
     type comment {
         _id: ID
         comment: String
