@@ -3,14 +3,20 @@ import bcrypt from "bcrypt"
 import jwt from "../utils/jwt"
 import {uploadFiles} from "../utils/azureStorage";
 
+
 export default {
     Query: {
         user: async (parent, {id}, {models: {userModel}, userInfo}, info) => {
-            console.log(userInfo)
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
             return await userModel.findById({_id: id}).exec()
+        },
+        getAuthUser: async (parent, {id}, {models: {userModel}, userInfo}, info) => {
+            if (!userInfo) {
+                throw new AuthenticationError('You are not authenticated');
+            }
+            return await userModel.findById({_id: userInfo._id}).exec()
         },
 
         login: async (parent, {email, password}, {models: {userModel}}, info) => {
@@ -56,6 +62,9 @@ export default {
     User: {
         posts: async ({id}, args, {models: {postModel}}, info) => {
             return await postModel.find({author: id}).exec();
+        },
+        comment: async ({id}, args, {models: {commentModel}}, info) => {
+            return await commentModel.find({author: id}).exec();
         },
     },
 };

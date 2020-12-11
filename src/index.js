@@ -12,7 +12,9 @@ import resolvers from './resolvers'
 
 import userModel from './models/userModel';
 import postModel from './models/postModel';
+import commentModel from './models/commentModel';
 import likeModel from './models/likeModel';
+
 
 dotenv.config({
     path: `./.env.${process.env.NODE_ENV}`
@@ -20,7 +22,6 @@ dotenv.config({
 
 const app = express();
 //app.use(bodyParser.urlencoded({extended: false}));
-
 app.use(
     cors({
         credentials: true,
@@ -43,12 +44,15 @@ const server = new ApolloServer({
                     userModel,
                     postModel,
                     likeModel,
+                    commentModel
                 },
             };
         }
     },
     formatError(err) {
-        console.log(uuid() +": " + err.message)
+        if(process.env.NODE_ENV !=='test'){
+            console.log(uuid() +": " + err.message)
+        }
         return {
            // ErrorEventId: uuid(),
             message: err.message,

@@ -12,8 +12,17 @@ export default gql`
         bio: String
         posts: [Post!]!
         profile_image_url: Photo!
+        comment: [comment]
     }
-
+    
+    type comment {
+        _id: ID
+        comment: String
+        post: Post
+        createdAt: String
+        author: User
+    }
+    
     type Token {
         token: String!
     }
@@ -21,6 +30,7 @@ export default gql`
     extend type Query {
         # get Info user with Id
         user(id: ID!): User!
+        getAuthUser: User!
         login(email: String!, password: String!): Token!
     }
     
