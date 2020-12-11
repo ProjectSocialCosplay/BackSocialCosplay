@@ -6,7 +6,7 @@ export default gql`
         content: String!
         author: User!
         comment: [Comment]
-        Like: [Like]
+        like: [Like]
         updatedAt: Date
     }
 

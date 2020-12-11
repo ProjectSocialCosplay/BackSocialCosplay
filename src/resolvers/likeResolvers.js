@@ -2,52 +2,62 @@ import {AuthenticationError} from 'apollo-server';
 
 export default {
     Query: {
+
         getAuthUserlike: async (parent, {id}, {models: {likeModel}, userInfo}, info) => {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await likeModel.find({author: id}).exec()
+            return await likeModel.find({author: id}).sort({updatedAt: -1}).exec()
         },
         getPostLike: async (parent, args, {models: {likeModel}, userInfo}, info) => {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await likeModel.find({author: userInfo._id}).exec();
+            return await likeModel.find({author: userInfo._id}).sort({updatedAt: -1}).exec();
         },
     },
 
     Mutation: {
-
-        Like: async (root, {input: {userId, postId}}, {Like, Post, User},userInfo) => {
+        like: async (root, {postId}, {models: {likeModel, postModel, userModel},userInfo},info) => {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            const like = await new Like({user: userId, post: postId}).save();
+            const like = await new likeModel({user: userInfo._id, post: postId}).save();
 
+            console.log(like)
+            console.log(userInfo)
+            console.log(like.post)
             // Push like to post collection
-            await Post.findOneAndUpdate({_id: like.post}, {$push: {likes: like.id}});
+            await postModel.findOneAndUpdate({_id: like.post}, {$push: {likes: like.id}}).catch((e)=>{
+                console.log(e)
+            });
             // Push like to user collection
-            await User.findOneAndUpdate({_id: like.user}, {$push: {likes: like.id}});
+            await userModel.findOneAndUpdate({_id: like.user}, {$push: {likes: like.id}}).catch((e)=>{
+                console.log(e)
+            });
             return like;
         },
 
-        unLike: async (root, {input: {id}}, {Like, User, Post},userInfo) => {
+        unLike: async (root, {input: {id}},  {models: {likeModel, postModel, userModel}, userInfo},info) => {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            const like = await Like.findByIdAndRemove(id);
+            const like = await likeModel.findByIdAndRemove(id);
 
-            await User.findOneAndUpdate({_id: like.user}, {$pull: {likes: like.id}});
+            await userModel.findOneAndUpdate({_id: like.user}, {$pull: {likes: like.id}});
 
-            await Post.findOneAndUpdate({_id: like.post}, {$pull: {likes: like.id}});
+            await postModel.findOneAndUpdate({_id: like.post}, {$pull: {likes: like.id}});
 
             return like;
         },
     },
 
     Like: {
-        author: async ({author}, args, {models: {userModel}}, info) => {
-            return await userModel.findById({_id: author}).exec();
+        user: async ({}, args,  {models: {userModel},userInfo}, info) => {
+            return await userModel.findById({_id: userInfo._id}).sort({updatedAt: -1}).exec();
+        },
+        post: async ({postId}, args,  {models: {postModel}}, info) => {
+            return await postModel.findById({_id: postId}).sort({updatedAt: -1}).exec();
         },
     },
 };

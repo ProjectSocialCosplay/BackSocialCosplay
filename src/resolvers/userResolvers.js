@@ -11,13 +11,13 @@ export default {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await userModel.findById({_id: id}).exec()
+            return await userModel.findById({_id: id}).sort({updatedAt: -1}).exec()
         },
         getAuthUser: async (parent, {id}, {models: {userModel}, userInfo}, info) => {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await userModel.findById({_id: userInfo._id}).exec()
+            return await userModel.findById({_id: userInfo._id}).sort({updatedAt: -1}).exec()
         },
 
         login: async (parent, {email, password}, {models: {userModel}}, info) => {
@@ -62,13 +62,13 @@ export default {
     },
     User: {
         posts: async ({id}, args, {models: {postModel}}, info) => {
-            return await postModel.find({author: id}).exec();
+            return await postModel.find({author: id}).sort({updatedAt: -1}).exec();
         },
         comment: async ({id}, args, {models: {commentModel}}, info) => {
-            return await commentModel.find({author: id}).exec();
+            return await commentModel.find({author: id}).sort({updatedAt: -1}).exec();
         },
         likes: async ({id}, args, {models: {likeModel}}, info) => {
-            return await likeModel.find({author: id}).exec();
+            return await likeModel.find({author: id}).sort({updatedAt: -1}).exec();
         },
     },
 };

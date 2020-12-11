@@ -15,8 +15,8 @@ export default  gql`
 }
 
   extend type Mutation {
-    Like(userId: ID!, postId: ID!): Like
-    unLike(id: ID!): Like
+    like(postId: ID!): Like
     
+    unLike(id: ID!): Like
   }
 `;
