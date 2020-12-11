@@ -6,7 +6,7 @@ export default {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await commentModel.find({post: id}).exec()
+            return await commentModel.find.sort({updatedAt: -1})({post: id}).exec()
         }
     },
     Mutation: {
