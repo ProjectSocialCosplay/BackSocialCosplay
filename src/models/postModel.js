@@ -4,14 +4,21 @@ const postSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
-        minLength: [255, 'Post is too long'],
+        trim: true,
+        maxLength: [255, 'Post is too long'],
     },
     author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
     },
+    comments:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+    }]
+},{
+    timestamps: true,
 });
 
-const post = mongoose.model('post', postSchema);
+const post = mongoose.model('Post', postSchema);
 
 export default post;

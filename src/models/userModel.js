@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema({
         unique: true,
         trim: true,
         minLength: [3, 'pseudo is too short'],
-
     },
     email: {
         type: String,
@@ -56,11 +55,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'default_profile_image',
     },
-    dateUpdate: {
-        type: Date,
-        default: Date.now()
-    }
-
+    post:[
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Post',
+        },
+    ],
+},{
+    timestamps: true,
 });
 userSchema.plugin(uniqueValidator, {message: 'is already taken'});
 

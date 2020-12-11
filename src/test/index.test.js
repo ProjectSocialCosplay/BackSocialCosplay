@@ -1,14 +1,15 @@
 const {gql} = require('apollo-server-express');
 const {appServ, server} = require('../index')
 const supertest = require("supertest");
-const {connectToDb, closeDbConnection, removeAllCollections} = require("./test-setup");
-
-const {setupDB} = require('./test-setup')
+const {connectToDb, closeDbConnection, removeAllCollections} = require("./test-setup-bdd");
 const request = supertest(appServ)
+
 const {userRegister, userAuth} = require('./auth.test')
-const {postDescription} = require('./post.test')
+const {post} = require('./post.test')
+const {comment} = require('./comment.test')
 
 describe('Init Test', ()=>{
+
     // Connect to Mongoose
     beforeAll(async () => {
         await connectToDb()
@@ -27,7 +28,8 @@ describe('Init Test', ()=>{
 
     describe('User register', ()=>{userRegister(request)})
     describe('User Auth', ()=>{userAuth(request)})
-    describe('Post', ()=>{postDescription(request)})
+    describe('Post', ()=>{post(request)})
+    describe('Comment', ()=>{comment(request)})
 
 })
 

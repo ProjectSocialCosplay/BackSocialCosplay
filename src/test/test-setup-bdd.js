@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { createTestClient } = require('apollo-server-testing');
+
 mongoose.set('useCreateIndex', true)
 mongoose.promise = global.Promise
 
