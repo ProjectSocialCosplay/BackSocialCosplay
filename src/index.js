@@ -13,6 +13,8 @@ import resolvers from './resolvers'
 import userModel from './models/userModel';
 import postModel from './models/postModel';
 import commentModel from './models/commentModel';
+import likeModel from './models/likeModel';
+
 
 dotenv.config({
     path: `./.env.${process.env.NODE_ENV}`
@@ -41,7 +43,8 @@ const server = new ApolloServer({
                 models: {
                     userModel,
                     postModel,
-                    commentModel,
+                    likeModel,
+                    commentModel
                 },
             };
         }
