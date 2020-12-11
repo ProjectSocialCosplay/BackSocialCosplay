@@ -51,7 +51,7 @@ export default {
             return await userModel.findById({_id: author}).exec();
         },
         comment: async ({id}, args, {models: {commentModel}}, info) => {
-            return await commentModel.find({post: id}).exec();
+            return await commentModel.find({post: id}).sort({updatedAt: -1}).exec();
         },
     },
 
