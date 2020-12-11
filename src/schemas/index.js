@@ -1,4 +1,5 @@
 const { gql } = require('apollo-server');
+
 import userSchema from './userSchema';
 import postSchema from './postSchema';
 import photoSchema from "./photoSchema";

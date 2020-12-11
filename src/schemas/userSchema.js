@@ -11,6 +11,7 @@ export default gql`
         create_at: Date!
         bio: String
         posts: [Post!]!
+        likes: [Like]
         profile_image_url: Photo!
         comment: [comment]
     }

@@ -2,6 +2,7 @@ import {AuthenticationError} from 'apollo-server-express'
 import bcrypt from "bcrypt"
 import jwt from "../utils/jwt"
 import {uploadFiles} from "../utils/azureStorage";
+import likeModel from "../models/likeModel";
 
 
 export default {
@@ -65,6 +66,9 @@ export default {
         },
         comment: async ({id}, args, {models: {commentModel}}, info) => {
             return await commentModel.find({author: id}).exec();
+        },
+        likes: async ({id}, args, {models: {likeModel}}, info) => {
+            return await likeModel.find({author: id}).exec();
         },
     },
 };

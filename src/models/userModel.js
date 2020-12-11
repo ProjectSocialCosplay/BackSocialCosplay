@@ -55,15 +55,22 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'default_profile_image',
     },
-    post:[
+    post: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Post',
         },
     ],
-},{
+    like: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Like',
+        },
+    ],
+}, {
     timestamps: true,
 });
+
 userSchema.plugin(uniqueValidator, {message: 'is already taken'});
 
 userSchema.pre('save', function () {
