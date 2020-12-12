@@ -24,10 +24,7 @@ export default {
             }
             const like = await new likeModel({user: userInfo._id, post: postId}).save();
 
-            console.log(like)
-            console.log(userInfo)
-            console.log(like.post)
-            // Push like to post collection
+             // Push like to post collection
             await postModel.findOneAndUpdate({_id: like.post}, {$push: {likes: like.id}}).catch((e)=>{
                 console.log(e)
             });
@@ -53,11 +50,12 @@ export default {
     },
 
     Like: {
-        user: async ({}, args,  {models: {userModel},userInfo}, info) => {
-            return await userModel.findById({_id: userInfo._id}).sort({updatedAt: -1}).exec();
+        user: async ({user}, args, {models: {userModel}, userInfo}, info) => {
+            return await userModel.findById({_id: user}).sort({updatedAt: -1}).exec();
         },
-        post: async ({postId}, args,  {models: {postModel}}, info) => {
-            return await postModel.findById({_id: postId}).sort({updatedAt: -1}).exec();
+
+        post: async ({post}, args, {models: {postModel}}, info) => {
+            return await postModel.findById({_id: post}).sort({updatedAt: -1}).exec();
         },
     },
 };

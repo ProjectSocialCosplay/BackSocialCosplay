@@ -2,7 +2,7 @@ import { gql } from 'apollo-server';
 
 export default  gql`
   type Like {
-    id: ID!
+    _id: ID!
     post: Post
     user: User
   }
