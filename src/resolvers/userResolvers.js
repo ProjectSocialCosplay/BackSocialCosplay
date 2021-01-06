@@ -1,8 +1,6 @@
 import {AuthenticationError} from 'apollo-server-express'
 import bcrypt from "bcrypt"
 import jwt from "../utils/jwt"
-import {uploadFiles} from "../utils/azureStorage";
-
 
 export default {
     Query: {
@@ -39,24 +37,8 @@ export default {
         },
     },
     Mutation: {
-        createUser: async (parent, {pseudo, email, password, birthdate, profile_image_url}, {models: {userModel}}, info) => {
-            // TODO debug result
-            if(profile_image_url){
-
-                try{
-                    const uplaodImage = await uploadFiles(profile_image_url, 'profile_image')
-                    console.log(uplaodImage)
-                    /*
-                    if(!uplaodImage.secureURL){
-                        throw new Error("Something went wrong while uploading image")
-                    }
-                    */
-                }catch (e){
-                    console.log(e)
-                    throw new Error("Something went wrong while uploading image")
-                }
-            }
-            return await userModel.create({pseudo, email, password, birthdate, profile_image_url});
+        createUser: async (parent, {pseudo, email, password, birthdate}, {models: {userModel}}, info) => {
+            return await userModel.create({pseudo, email, password, birthdate});
         },
     },
     User: {

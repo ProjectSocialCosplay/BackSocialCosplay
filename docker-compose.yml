@@ -24,6 +24,15 @@ services:
       - '27017:27017'
     networks:
       - API_Networks
+
+  mongo-express:
+    image: 'mongo-express'
+    container_name: mongo-express
+    ports:
+      - 8081:8081
+    networks:
+      - API_Networks
+
 networks:
   API_Networks:
     driver: bridge
