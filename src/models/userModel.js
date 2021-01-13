@@ -52,8 +52,8 @@ const userSchema = new mongoose.Schema({
         trim: true,
     },
     profile_image_url: {
-        type: String,
-        default: 'default_profile_image',
+        type: Schema.Types.ObjectId,
+        ref: 'Picture'
     },
     post:[
         {

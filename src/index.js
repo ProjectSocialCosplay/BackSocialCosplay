@@ -1,11 +1,11 @@
 import dotenv from 'dotenv'
 import cors from 'cors'
-import bodyParser from 'body-parser'
 import express from 'express'
 import {ApolloServer, ApolloError} from 'apollo-server-express'
 import jwt from './utils/jwt';
 import {uuid} from './utils/tools'
 import mongodbconfig from './config/db'
+import * as bodyParser from "body-parser";
 
 import schemas from './schemas'
 import resolvers from './resolvers'
@@ -14,14 +14,16 @@ import userModel from './models/userModel';
 import postModel from './models/postModel';
 import commentModel from './models/commentModel';
 import likeModel from './models/likeModel';
-
+import pictureModel from './models/pictureModel'
 
 dotenv.config({
     path: `./.env.${process.env.NODE_ENV}`
 });
 
 const app = express();
-//app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json({limit: '10mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
+
 app.use(
     cors({
         credentials: true,
@@ -44,8 +46,10 @@ const server = new ApolloServer({
                     userModel,
                     postModel,
                     likeModel,
+                    pictureModel,
                     commentModel
                 },
+                req
             };
         }
     },

@@ -11,7 +11,7 @@ export default gql`
         create_at: Date!
         bio: String
         posts: [Post!]!
-        profile_image_url: Photo!
+        profile_image: Picture
         comment: [comment]
     }
     
@@ -32,6 +32,7 @@ export default gql`
         user(id: ID!): User!
         getAuthUser: User!
         login(email: String!, password: String!): Token!
+        getProfileImage(Image: String): Picture
     }
     
     extend type Mutation {
