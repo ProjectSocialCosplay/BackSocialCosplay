@@ -1,0 +1,30 @@
+name: COninus Integration
+on:
+  push:
+    branches:
+      - develop
+      - feature/.*
+  pull_request:
+    branches:
+      - master
+      - develop
+
+jobs:
+  # unit test
+  # build before test d'integration
+  test:
+    name : Run_unite_tests
+    runs-on: ubuntu-18.04
+    services:
+      dbsocial:
+        image: mongo
+        ports:
+          - 27017:27017
+      node:
+        image: .
+    steps:
+      - uses: actions/checkout@v2
+      - name: build image
+        run: docker build . --file Dockerfile --tag api_social
+      - name: Integ tests
+        run:  docker run --network=backsocialcosplay_API_Networks api_social npm run test

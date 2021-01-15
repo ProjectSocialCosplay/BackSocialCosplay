@@ -2,19 +2,18 @@ version: '3.6'
 services:
   node:
     container_name: Back-SocialCosplay
-    image: 'node:latest'
-    working_dir: /home/node/app
+    build: .
     command:
       - /bin/sh
       - '-c'
-      - 'npm install && npm run start-dev'
+      - 'npm run start-dev'
     links:
       - mongo
     ports:
       - '7000:7000'
     volumes:
-      - './:/home/node/app'
-      - '/home/node/app/node_modules'
+      - './:/home/app'
+      - '/home/app/node_modules'
     networks:
       - API_Networks
   mongo:
@@ -22,14 +21,6 @@ services:
     image: 'mongo'
     ports:
       - '27017:27017'
-    networks:
-      - API_Networks
-
-  mongo-express:
-    image: 'mongo-express'
-    container_name: mongo-express
-    ports:
-      - 8081:8081
     networks:
       - API_Networks
 

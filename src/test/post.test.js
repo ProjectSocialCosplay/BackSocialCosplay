@@ -26,6 +26,7 @@ export const post = (request) => {
     it('Create Post', async (done) => {
         const query = ` mutation {
              createPost(content: "test") {
+                        id
                         content
                         author{
                             email

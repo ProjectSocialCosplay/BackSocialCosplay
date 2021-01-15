@@ -70,7 +70,9 @@ server.applyMiddleware({app, path: '/graphql'});
 mongodbconfig.moogoseConnect()
 
 const appServ = app.listen(process.env.PORT, () => {
-    console.log(`🚀 Server listening on port ${process.env.PORT}`);
+    if(process.env.NODE_ENV !== 'test'){
+        console.log(`🚀 Server listening on port ${process.env.PORT}`);
+    }
 });
 
 export {

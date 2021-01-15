@@ -1,5 +1,5 @@
 const {gql} = require('apollo-server-express');
-const {appServ, server} = require('../index')
+const {appServ, server, mongodbconfig} = require('../index')
 const supertest = require("supertest");
 const {connectToDb, closeDbConnection, removeAllCollections} = require("./test-setup-bdd");
 const request = supertest(appServ)
@@ -24,6 +24,7 @@ describe('Init Test', ()=>{
     afterAll(async () => {
         await closeDbConnection()
         appServ.close()
+        process.exit()
     })
 
     describe('User register', ()=>{userRegister(request)})
