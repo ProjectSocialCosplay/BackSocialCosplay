@@ -13,7 +13,7 @@ jobs:
   # unit test
   # build before test d'integration
   test:
-    name : Run_unite_tests
+    name : run_unite_tests
     runs-on: ubuntu-18.04
     services:
       dbsocial:
@@ -23,6 +23,7 @@ jobs:
       node:
         image: .
     steps:
+      - name: checkout
       - uses: actions/checkout@v2
       - name: build image
         run: docker build . --file Dockerfile --tag api_social
