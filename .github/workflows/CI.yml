@@ -10,11 +10,28 @@ on:
       - develop
 
 jobs:
-  # unit test
-  # build before test d'integration
-  test:
-    name : run_unite_tests
+  unit_test:
+    name: Unit test
     runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: install dependance
+        run: npm install
+      - name: run unit test
+        run: npm run unit_test
+
+  build:
+    name : build
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: build image
+        run: docker build . --file ../../Dockerfile  --tag api_social
+
+  integ_tests:
+    name : run integration tests
+    runs-on: ubuntu-18.04
+    needs: Build
     services:
       dbsocial:
         image: mongo
@@ -23,9 +40,6 @@ jobs:
       node:
         image: .
     steps:
-      - name: checkout
       - uses: actions/checkout@v2
-      - name: build image
-        run: docker build . --file Dockerfile --tag api_social
       - name: Integ tests
         run:  docker run --network=backsocialcosplay_API_Networks api_social npm run test

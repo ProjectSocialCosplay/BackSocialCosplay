@@ -6,7 +6,8 @@
   "scripts": {
     "start-prod": "node src/index.js",
     "start-dev": "NODE_ENV=development nodemon  --trace-deprecation  --exec babel-node src/index.js",
-    "test": "NODE_ENV=test DB_TEST_HOST=localhost jest --colors --testEnvironment=node  --forceExit --watchAll src/test/index.test.js"
+    "unit-test": "NODE_ENV=test jest --colors --testEnvironment=node  --forceExit --watchAll src/test/integ-test/index.test.js",
+    "integ-test": "jest --colors --testEnvironment=node  --forceExit --watchAll src/test/unit-test/index.js"
   },
   "dependencies": {
     "@babel/core": "^7.1.6",
