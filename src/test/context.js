@@ -1,3 +1,6 @@
+function IntegTestData() {}
+let data = new IntegTestData();
+
 let _token
 
 export const getToken = () => {
@@ -7,5 +10,6 @@ export const getToken = () => {
 export const setToken = (token) => {
     _token = token;
 }
+exports.IntegTestData = data;
 
 
