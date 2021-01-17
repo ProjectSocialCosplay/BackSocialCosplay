@@ -7,7 +7,7 @@ const commentSchema = new mongoose.Schema({
     comment: {
       type: String,
       required: true,
-      minLength: [255, 'Post is too long'],
+      maxLength: [255, 'Comment is too long'],
     },
     post: {
       type: Schema.Types.ObjectId,

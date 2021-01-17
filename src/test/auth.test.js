@@ -1,4 +1,5 @@
-const {getToken, setToken} = require('./context');
+const {IntegTestData} = require('./context');
+
 export const userRegister = (request) => {
     it('insert user with empty pseudo', async (done) => {
         request
@@ -260,7 +261,8 @@ export const userAuth = (request) => {
                 let res = JSON.parse(query.text)
                 //expect(query.status).toBe(200) TODO: Voir pourquoi c'est une 400
                 expect(res.data.token).not.toBeNull();
-                setToken(res.data.login.token)
+                IntegTestData.token = res.data.login.token
+                expect(IntegTestData.token).not.toBeNull();
                 done();
             });
     },);

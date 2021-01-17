@@ -1,6 +1,5 @@
-const {getToken, setToken} = require('./context');
+const {IntegTestData} = require('./context');
 export const post = (request) => {
-
     it('Create Post not authenticated', async (done) => {
         const query = ` mutation {
              createPost(content: "test") {
@@ -26,6 +25,7 @@ export const post = (request) => {
     it('Create Post', async (done) => {
         const query = ` mutation {
              createPost(content: "test") {
+                        _id
                         content
                         author{
                             email
@@ -34,13 +34,14 @@ export const post = (request) => {
         request
             .post('/graphql')
             .set('Content-Type', 'application/json')
-            .set('token', getToken())
+            .set('token',IntegTestData.token)
             .set('Accept', '*/*')
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
                 expect(res.data.createPost.content).toBe("test");
+                IntegTestData.postId = res.data.createPost._id
                 done();
             });
     },);
@@ -56,7 +57,7 @@ export const post = (request) => {
         request
             .post('/graphql')
             .set('Content-Type', 'application/json')
-            .set('token', getToken())
+            .set('token', IntegTestData.token)
             .set('Accept', '*/*')
             .send({query})
             .then(response => {
@@ -75,11 +76,10 @@ export const post = (request) => {
                             email
                         }
              }}`;
-
         request
             .post('/graphql')
             .set('Content-Type', 'application/json')
-            .set('token', getToken())
+            .set('token', IntegTestData.token)
             .set('Accept', '*/*')
             .send({query})
             .then(response => {
