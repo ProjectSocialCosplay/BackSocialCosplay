@@ -127,6 +127,7 @@ export const userRegister = (request) => {
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
+                IntegTestData.user_id = res.data.createUser._id
                 expect(response.status).toBe(200)
                 expect(res.data.createUser.pseudo).toBe("ttt");
                 expect(res.data.createUser.email).toBe("test@gmail.com");
@@ -174,12 +175,12 @@ export const userAuth = (request) => {
             });
     },);
     it('Authentication empty password', async (done) => {
-        const query = ` query {
+        const query = `query {
                             login( password: "", email: "test@gmail.com") {
                                token
                             }}`;
         request
-            .post('/graphql')               // console.log(queryInsert)
+            .post('/graphql')
             .set('Content-Type', 'application/json')
             .set('Accept', '*/*')
             .send({query})
@@ -191,7 +192,7 @@ export const userAuth = (request) => {
             });
     },);
     it('Authentication wrong password', async (done) => {
-        const query = ` query {
+        const query = `query {
                             login( password: "sdgsdhgs", email: "test@gmail.com") {
                                token
                             }}`;
