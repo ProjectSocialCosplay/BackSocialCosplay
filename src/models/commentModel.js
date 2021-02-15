@@ -8,6 +8,7 @@ const commentSchema = new mongoose.Schema({
       type: String,
       required: true,
       maxLength: [255, 'Comment is too long'],
+      trim: true,
     },
     post: {
       type: Schema.Types.ObjectId,

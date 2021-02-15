@@ -89,4 +89,26 @@ export const post = (request) => {
                 done();
             });
     },);
+    it('Get user post', async (done) => {
+        const query = `query {
+             getPostWithUserId(id: "${IntegTestData.user_id}") {
+                        _id
+                        content
+                        author{
+                            email
+                        }
+             }}`;
+        request
+            .post('/graphql')
+            .set('Content-Type', 'application/json')
+            .set('token', IntegTestData.token)
+            .set('Accept', '*/*')
+            .send({query})
+            .then(response => {
+                let res = JSON.parse(response.text)
+                expect(response.status).toBe(200)
+                expect(res.data.getPostWithUserId[0].content).toBe('test');
+                done();
+            });
+    },);
 }

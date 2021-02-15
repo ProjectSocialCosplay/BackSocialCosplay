@@ -15,7 +15,7 @@ export default gql`
 
     extend type Query {
         # Get user Comment
-        getCommentPost(id: ID!): [Comment]!
+        getComment(id: ID!): [Comment]!
 
     }
     extend type Mutation {
