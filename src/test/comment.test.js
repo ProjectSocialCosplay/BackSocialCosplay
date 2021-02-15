@@ -51,6 +51,93 @@ export const comment = (request) => {
                 done();
             });
     });
+    it('Create more 255 caracter', async (done) => {
+        const query = ` mutation{
+                          createComment(comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac st egestas, posuere urna eu, blandit sapien. Sed vitae nisi finibus, fermentum dui vel, fermentum risus. Maecenas ornare, odio ut commodo bibendum, nulla quam semper eros, at pretium qui sfs" postId:"${IntegTestData.postId}")
+                          {
+                            _id
+                            comment
+                            post{
+                              _id content
+                            }
+                            author{
+                              _id
+                              pseudo
+                            }
+                          }
+                        }`;
+
+        request
+            .post('/graphql')
+            .set('Content-Type', 'application/json')
+            .set('Accept', '*/*')
+            .set('token', IntegTestData.token)
+            .send({query})
+            .then(response => {
+                let res = JSON.parse(response.text)
+                expect(response.status).toBe(200)
+                expect(res.errors[0].message).toBe("Comment validation failed: comment: Comment is too long");
+                done();
+            });
+    });
+
+    it('Empty comment', async (done) => {
+        const query = ` mutation{
+                          createComment(comment:"" postId:"${IntegTestData.postId}")
+                          {
+                            _id
+                            comment
+                            post{
+                              _id content
+                            }
+                            author{
+                              _id
+                              pseudo
+                            }
+                          }
+                        }`;
+        request
+            .post('/graphql')
+            .set('Content-Type', 'application/json')
+            .set('Accept', '*/*')
+            .set('token', IntegTestData.token)
+            .send({query})
+            .then(response => {
+                let res = JSON.parse(response.text)
+                expect(response.status).toBe(200)
+                expect(res.errors[0].message).toBe("Comment validation failed: comment: Path `comment` is required.");
+                done();
+            });
+    });
+    it('Empty comment with space charter', async (done) => {
+        const query = ` mutation{
+                          createComment(comment:" " postId:"${IntegTestData.postId}")
+                          {
+                            _id
+                            comment
+                            post{
+                              _id content
+                            }
+                            author{
+                              _id
+                              pseudo
+                            }
+                          }
+                        }`;
+        request
+            .post('/graphql')
+            .set('Content-Type', 'application/json')
+            .set('Accept', '*/*')
+            .set('token', IntegTestData.token)
+            .send({query})
+            .then(response => {
+                let res = JSON.parse(response.text)
+                expect(response.status).toBe(200)
+                console.log(res.errors)
+                expect(res.errors[0].message).toBe("Comment validation failed: comment: Path `comment` is required.");
+                done();
+            });
+    });
 
     it('get Comment', async (done) => {
         const query = ` query{
