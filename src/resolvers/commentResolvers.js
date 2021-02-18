@@ -11,6 +11,10 @@ export default {
     },
     Mutation: {
         createComment: async (root, {comment, postId}, {models: {postModel, commentModel}, userInfo}) => {
+            if (!userInfo) {
+                throw new AuthenticationError('You are not authenticated');
+            }
+
             let author = userInfo._id
             let post = postId;
             let data = new commentModel({comment, post, author})
@@ -33,7 +37,7 @@ export default {
     },
     Comment: {
         author: async (parent, arg, {models: {userModel}, userInfo}, info) => {
-            return await userModel.findOne({_id: userInfo._id}).exec()
+            return await userModel.findOne({_id: parent.author}).exec()
         },
         post: async (parent, arg, {models: {postModel}}, info) => {
             return await postModel.findOne({_id: parent.post}).exec()

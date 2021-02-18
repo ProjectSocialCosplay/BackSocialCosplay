@@ -130,6 +130,7 @@ export const userRegister = (request) => {
                 expect(response.status).toBe(200)
                 expect(res.data.createUser.pseudo).toBe("ttt");
                 expect(res.data.createUser.email).toBe("test@gmail.com");
+                IntegTestData.userId = res.data.createUser._id
                 done();
             });
     },);

@@ -55,6 +55,12 @@ const userSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Picture'
     },
+    likes: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Like',
+        },
+    ],
     post:[
         {
             type: Schema.Types.ObjectId,

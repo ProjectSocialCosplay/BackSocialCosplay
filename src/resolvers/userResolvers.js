@@ -43,10 +43,13 @@ export default {
     },
     User: {
         posts: async ({id}, args, {models: {postModel}}, info) => {
-            return await postModel.find({author: id}).exec();
+                return await postModel.find({author: id}).exec();
         },
         comment: async ({id}, args, {models: {commentModel}}, info) => {
-            return await commentModel.find({author: id}).exec();
+                return await commentModel.find({author: id}).exec();
+        },
+        likes: async ({id}, args, {models: {likeModel}}, info) => {
+                return await likeModel.find({author: id}).exec();
         },
     },
 };

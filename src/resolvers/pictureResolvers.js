@@ -38,7 +38,7 @@ export default {
     
     Picture: {
         author: async (parent, arg, {models: {userModel}, userInfo}, info) => {
-            return await userModel.findOne({_id: userInfo._id}).exec()
+            return await userModel.findOne({_id: parent.author}).exec()
         },
         url: async (filename) => {
             console.log(filename)

@@ -16,7 +16,6 @@ export const comment = (request) => {
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
-                console.log(res)
                 expect(response.status).toBe(200)
                 expect(res.errors[0].message).toBe('You are not authenticated');
                 done();
@@ -48,7 +47,7 @@ export const comment = (request) => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
                 expect(res.data.createComment.comment).toBe("1 comment");
-                IntegTestData.postId = res.data.createComment.comment
+                IntegTestData.commentId = res.data.createComment._id
                 done();
             });
     });
@@ -109,7 +108,7 @@ export const comment = (request) => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-                expect(res.errors[0].message).toBe("Comment validation failed: post: Cast to ObjectId failed for value \"1 comment\" at path \"post\", comment: Path `comment` is required.");
+                expect(res.errors[0].message).toBe("Comment validation failed: comment: Path `comment` is required.");
                 // TODO: Les messages d'erreurs sont pas bon
                 done();
         });
@@ -138,7 +137,7 @@ export const comment = (request) => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-                expect(res.errors[0].message).toBe("Comment validation failed: post: Cast to ObjectId failed for value \"1 comment\" at path \"post\", comment: Path `comment` is required.");
+                expect(res.errors[0].message).toBe("Comment validation failed: comment: Path `comment` is required.");
                 // TODO: Les messages d'erreurs sont pas bon
                 done();
         });

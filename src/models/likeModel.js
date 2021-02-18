@@ -1,16 +1,13 @@
 import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
 
-
-const likeSchema = Schema(
-  {
+const likeSchema = new mongoose.Schema({
     post: {
-      type: Schema.Types.ObjectId,
+      type:  mongoose.Schema.Types.ObjectId,
       ref: 'Post',
     },
-    user: {
-      type: Schema.Types.ObjectId,
+    author: {
+      type:  mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
   },

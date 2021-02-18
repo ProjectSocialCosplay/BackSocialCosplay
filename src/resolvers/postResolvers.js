@@ -53,6 +53,9 @@ export default {
         comment: async ({id}, args, {models: {commentModel}}, info) => {
             return await commentModel.find({post: id}).sort({updatedAt: -1}).exec();
         },
+        likes: async ({id}, args, {models: {likeModel}}, info) => {
+            return await likeModel.find({post: id}).sort({updatedAt: -1}).exec();
+        },
     },
 
 };
