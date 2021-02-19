@@ -79,7 +79,7 @@ export const like = (request) => {
 
     it('deleteLike', async (done) => {
         const query = ` mutation{
-                          deleteLike(postId:"${IntegTestData.likeId}")
+                          deleteLike(postId:"${IntegTestData.postId}")
                           {    
                              message
                           }
@@ -93,6 +93,7 @@ export const like = (request) => {
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
+                console.log(res.data)
                 expect(response.status).toBe(200)
                 expect(res.data.deleteLike.message).toBe("Like successfully deleted.")
                 done();
