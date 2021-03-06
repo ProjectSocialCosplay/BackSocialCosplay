@@ -23,15 +23,13 @@ export default {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            const beforeDeleteLike = await likeModel.findOne({author:userInfo._id, post:postId})
-            console.log(beforeDeleteLike)
+            const beforeDeleteLike =  await likeModel.findOneAndRemove({author:userInfo._id, post:postId});
             if(beforeDeleteLike){
-                await likeModel.deleteOne({post:postId})
                 // Delete like from users collection
                 await userModel.findOneAndUpdate({ _id: beforeDeleteLike.author }, { $pull: { likes: beforeDeleteLike.id } });
                 // Delete like from posts collection
                 await postModel.findOneAndUpdate({ _id: beforeDeleteLike.post }, { $pull: { likes: beforeDeleteLike.id } });
-                return {message: 'Like successfully deleted.'};
+                return beforeDeleteLike
             }else{
                 throw new Error( 'internal server error');
             }

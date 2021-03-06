@@ -15,12 +15,9 @@ export default gql`
         likes: [Like]!
     }
 
-    type DeleteAuthorPayload {
-        message: String
-    }
     
     extend type Mutation {
         createLike(postId: ID!): Like
-        deleteLike(postId: ID!): DeleteAuthorPayload
+        deleteLike(postId: ID!): Like
     }
 `;

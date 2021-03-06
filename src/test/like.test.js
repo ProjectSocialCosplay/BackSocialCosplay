@@ -40,6 +40,7 @@ export const like = (request) => {
             });
     });
     it('Like post', async (done) => {
+
         const query = ` mutation{
                           createLike(postId:"${IntegTestData.postId}")
                           {    
@@ -78,12 +79,13 @@ export const like = (request) => {
     });
 
     it('deleteLike', async (done) => {
-        const query = ` mutation{
-                          deleteLike(postId:"${IntegTestData.postId}")
-                          {    
-                             message
-                          }
-                        }`;
+        const query = `mutation{ deleteLike(postId:"${IntegTestData.postId}"){
+                        author{
+                          _id
+                        email
+                        }
+                        post{_id}
+                      } }`;
 
         request
             .post('/graphql')
@@ -93,9 +95,9 @@ export const like = (request) => {
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
-                console.log(res.data)
                 expect(response.status).toBe(200)
-                expect(res.data.deleteLike.message).toBe("Like successfully deleted.")
+                expect(res.data.deleteLike.author._id).toBe(IntegTestData.userId)
+                expect(res.data.deleteLike.post._id).toBe(IntegTestData.postId)
                 done();
             });
     });
