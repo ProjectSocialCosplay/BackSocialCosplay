@@ -4,6 +4,7 @@ import postSchema from './postSchema';
 import pictureSchema from "./pictureSchema";
 import likeSchema from './likeSchema';
 import commentSchema from './commentSchema';
+import followSchema from './followSchema';
 
 const linkSchema = gql`
     scalar Date
@@ -16,4 +17,4 @@ const linkSchema = gql`
     }
 `;
 
-export default [linkSchema, userSchema, postSchema, pictureSchema, commentSchema, likeSchema];
+export default [linkSchema, userSchema, postSchema, pictureSchema, commentSchema, likeSchema, followSchema];

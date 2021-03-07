@@ -30,5 +30,6 @@ describe('Init Test', ()=>{
     describe('User Auth', ()=>{userAuth(request)})
     describe('Post', ()=>{post(request)})
     describe('Comment', ()=>{comment(request)})
+    describe('Follow', ()=>{follow(request)})
 })
 
