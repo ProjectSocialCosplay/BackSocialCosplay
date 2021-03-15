@@ -267,4 +267,27 @@ export const userAuth = (request) => {
                 done();
             });
     },);
+    it('update user', async (done) => {
+            const query = ` mutation {
+                 updateUser( pseudo: "linda", email: "linda@gmail.com", birthdate: "1988-11-12" ) {
+                            pseudo
+                            email
+                            _id
+                            }}`;
+
+            request
+                .post('/graphql')
+                .set('Content-Type', 'application/json')
+                .set('Accept', '*/*')
+                .set('token', IntegTestData.token)
+                .send({query})
+                .then(response => {
+                    let res = JSON.parse(response.text)
+                    IntegTestData.user_id = res.data.updateUser._id
+                    expect(response.status).toBe(200)
+                    expect(res.data.updateUser.pseudo).toBe("linda");
+                    expect(res.data.updateUser.email).toBe("linda@gmail.com");
+                    done();
+                });
+        },);
 }

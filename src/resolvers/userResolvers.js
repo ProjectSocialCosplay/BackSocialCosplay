@@ -40,6 +40,20 @@ export default {
         createUser: async (parent, {pseudo, email, password, birthdate}, {models: {userModel}}, info) => {
             return await userModel.create({pseudo, email, password, birthdate});
         },
+        updateUser: async (parent, {pseudo, email, birthdate}, {models: {userModel}, userInfo}, info) => {
+         if (!userInfo) {
+             throw new AuthenticationError('You are not authenticated');
+         }
+         let testUpdate = await userModel.findOneAndUpdate({_id: userInfo._id}, {pseudo: pseudo, email:email, birthdate: birthdate},
+         (err, result) => {
+             if (err) {
+             throw new Error("User not updated")
+             } else {
+               return(result)
+             }
+           })
+         return testUpdate;
+        },
     },
     User: {
         posts: async ({id}, args, {models: {postModel}}, info) => {
