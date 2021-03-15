@@ -1,9 +1,9 @@
-const {IntegTestData} = require('./context');
+const {IntegTestDataUserOne} = require('./context');
 export const comment = (request) => {
 
     it('Create comment not authenticated', async (done) => {
         const query = ` mutation{
-                          createComment(comment:"1 comment" postId:"${IntegTestData.postId}")
+                          createComment(comment:"1 comment" postId:"${IntegTestDataUserOne.postId}")
                           {
                             comment
                           }
@@ -23,7 +23,7 @@ export const comment = (request) => {
     });
     it('Creat Comment', async (done) => {
         const query = ` mutation{
-                          createComment(comment:"1 comment" postId:"${IntegTestData.postId}")
+                          createComment(comment:"1 comment" postId:"${IntegTestDataUserOne.postId}")
                           {
                             _id  
                             comment
@@ -41,19 +41,22 @@ export const comment = (request) => {
             .post('/graphql')
             .set('Content-Type', 'application/json')
             .set('Accept', '*/*')
-            .set('token', IntegTestData.token)
+            .set('token', IntegTestDataUserOne.token)
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
                 expect(res.data.createComment.comment).toBe("1 comment");
-                IntegTestData.commentId = res.data.createComment._id
+                IntegTestDataUserOne.postId = res.data.createComment.comment
                 done();
             });
     });
     it('Create more 255 caracter', async (done) => {
         const query = ` mutation{
-                          createComment(comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac st egestas, posuere urna eu, blandit sapien. Sed vitae nisi finibus, fermentum dui vel, fermentum risus. Maecenas ornare, odio ut commodo bibendum, nulla quam semper eros, at pretium qui sfs" postId:"${IntegTestData.postId}")
+                          createComment(comment:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac
+                                              est egestas, posuere urna eu, blandit sapien. Sed vitae nisi finibus, fermentum dui vel, 
+                                              fermentum risus. Maecenas ornare, odio ut commodo bibendum, nulla quam semper eros, at 
+                                              pretium qui" postId:"${IntegTestDataUserOne.postId}")
                           {
                             _id
                             comment
@@ -71,7 +74,7 @@ export const comment = (request) => {
             .post('/graphql')
             .set('Content-Type', 'application/json')
             .set('Accept', '*/*')
-            .set('token', IntegTestData.token)
+            .set('token', IntegTestDataUserOne.token)
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
@@ -83,7 +86,7 @@ export const comment = (request) => {
 
     it('Empty comment', async (done) => {
         const query = ` mutation{
-                          createComment(comment:"" postId:"${IntegTestData.postId}")
+                          createComment(comment:"" postId:"${IntegTestDataUserOne.postId}")
                           {
                             _id
                             comment
@@ -100,7 +103,7 @@ export const comment = (request) => {
             .post('/graphql')
             .set('Content-Type', 'application/json')
             .set('Accept', '*/*')
-            .set('token', IntegTestData.token)
+            .set('token', IntegTestDataUserOne.token)
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
@@ -111,7 +114,7 @@ export const comment = (request) => {
     });
     it('Empty comment with space charter', async (done) => {
         const query = ` mutation{
-                          createComment(comment:" " postId:"${IntegTestData.postId}")
+                          createComment(comment:"" postId:"${IntegTestDataUserOne.postId}")
                           {
                             _id
                             comment
@@ -158,7 +161,7 @@ export const comment = (request) => {
             .post('/graphql')
             .set('Content-Type', 'application/json')
             .set('Accept', '*/*')
-            .set('token', IntegTestData.token)
+            .set('token', IntegTestDataUserOne.token)
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
