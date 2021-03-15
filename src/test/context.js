@@ -1,15 +1,8 @@
-function IntegTestData() {}
-let data = new IntegTestData();
+function IntegTestDataUserOne() {}
+let userOne = new IntegTestDataUserOne();
+let userTwo = new IntegTestDataUserOne();
 
-let _token
-
-export const getToken = () => {
-    return _token
-}
-
-export const setToken = (token) => {
-    _token = token;
-}
-exports.IntegTestData = data;
+exports.IntegTestDataUserOne = userOne;
+exports.IntegTestDataUserTwo = userTwo;
 
 

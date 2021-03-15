@@ -7,6 +7,7 @@ const request = supertest(appServ)
 const {userRegister, userAuth} = require('./auth.test')
 const {post} = require('./post.test')
 const {comment} = require('./comment.test')
+const {follow} = require("./follow.test");
 
 describe('Init Test', ()=>{
 

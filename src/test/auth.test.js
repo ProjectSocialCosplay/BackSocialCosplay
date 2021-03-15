@@ -1,4 +1,4 @@
-const {IntegTestData} = require('./context');
+const {IntegTestDataUserOne} = require('./context');
 
 export const userRegister = (request) => {
     it('insert user with empty pseudo', async (done) => {
@@ -112,7 +112,7 @@ export const userRegister = (request) => {
                 done();
             });
     },);
-    it('insert user', async (done) => {
+    it('insert user one', async (done) => {
         const query = ` mutation {
              createUser( pseudo: "ttt", password: "test", email: "test@gmail.com", birthdate: "1930-11-12" ) {
                         pseudo
@@ -130,6 +130,7 @@ export const userRegister = (request) => {
                 expect(response.status).toBe(200)
                 expect(res.data.createUser.pseudo).toBe("ttt");
                 expect(res.data.createUser.email).toBe("test@gmail.com");
+                IntegTestDataUserOne._id = res.data.createUser._id
                 done();
             });
     },);
@@ -261,8 +262,8 @@ export const userAuth = (request) => {
                 let res = JSON.parse(query.text)
                 //expect(query.status).toBe(200) TODO: Voir pourquoi c'est une 400
                 expect(res.data.token).not.toBeNull();
-                IntegTestData.token = res.data.login.token
-                expect(IntegTestData.token).not.toBeNull();
+                IntegTestDataUserOne.token = res.data.login.token
+                expect(IntegTestDataUserOne.token).not.toBeNull();
                 done();
             });
     },);
