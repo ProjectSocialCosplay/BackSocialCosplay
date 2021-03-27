@@ -34,17 +34,5 @@ export default {
                 return {'key': data.key}
             }
         }
-    },
-    
-    Picture: {
-        author: async (parent, arg, {models: {userModel}, userInfo}, info) => {
-            return await userModel.findOne({_id: userInfo._id}).exec()
-        },
-        url: async (filename) => {
-            console.log(filename)
-            return 'https://' + process.env.BUCKETNAME + '.s3.eu-central-1.amazonaws.com/' + filename.key
-        }
-
     }
-
 };
