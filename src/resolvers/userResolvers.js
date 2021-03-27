@@ -1,6 +1,7 @@
 import {AuthenticationError} from 'apollo-server-express'
 import bcrypt from "bcrypt"
 import jwt from "../utils/jwt"
+import pictureModel from "../models/pictureModel";
 
 export default {
     Query: {
@@ -48,8 +49,12 @@ export default {
         comment: async ({id}, args, {models: {commentModel}}, info) => {
             return await commentModel.find({author: id}).exec();
         },
-        likes: async ({id}, args, {models: {likeModel}}, info) => {
-            return await likeModel.find({author: id}).exec();
-        },
+        profile_image: async (user, args, {models: {pictureModel}}, info) => {
+            const data = await pictureModel.findOne({author: user._id, _id: user.profile_image_url}).exec();
+            data.url = 'https://' + process.env.BUCKETNAME + '.s3.eu-central-1.amazonaws.com/users/avatars/' + data.key
+            if(data) {
+                return data
+            }
+        }
     },
 };
