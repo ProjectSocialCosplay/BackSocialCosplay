@@ -47,7 +47,7 @@ export const comment = (request) => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
                 expect(res.data.createComment.comment).toBe("1 comment");
-                IntegTestDataUserOne.postId = res.data.createComment.comment
+                IntegTestDataUserOne.commentId = res.data.createComment._id
                 done();
             });
     });
@@ -131,12 +131,11 @@ export const comment = (request) => {
             .post('/graphql')
             .set('Content-Type', 'application/json')
             .set('Accept', '*/*')
-            .set('token', IntegTestData.token)
+            .set('token', IntegTestDataUserOne.token)
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
-                console.log(res.errors)
                 expect(res.errors[0].message).toBe("Comment validation failed: comment: Path `comment` is required.");
                 done();
             });
@@ -144,7 +143,7 @@ export const comment = (request) => {
 
     it('get Comment', async (done) => {
         const query = ` query{
-                          getComment(id:"${IntegTestData.commentId}")
+                          getComment(id:"${IntegTestDataUserOne.commentId}")
                           {
                             _id  
                             comment

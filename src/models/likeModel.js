@@ -1,22 +1,19 @@
 import mongoose from 'mongoose';
 
-const Schema = mongoose.Schema;
 
-
-const likeSchema = Schema(
-  {
-    post: {
-      type: Schema.Types.ObjectId,
-      ref: 'Post',
+const likeSchema = new mongoose.Schema({
+        post: {
+            type:  mongoose.Schema.Types.ObjectId,
+            ref: 'Post',
+        },
+        author: {
+            type:  mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
     },
-    user: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  },
-  {
-    timestamps: true,
-  }
+    {
+        timestamps: true,
+    }
 );
 
 export default mongoose.model('Like', likeSchema);

@@ -91,7 +91,7 @@ export const post = (request) => {
     },);
     it('Get user post', async (done) => {
         const query = `query {
-             getPostWithUserId(id: "${IntegTestData.user_id}") {
+             getPostWithUserId(id: "${IntegTestDataUserOne._id}") {
                         _id
                         content
                         author{
@@ -101,12 +101,13 @@ export const post = (request) => {
         request
             .post('/graphql')
             .set('Content-Type', 'application/json')
-            .set('token', IntegTestData.token)
+            .set('token', IntegTestDataUserOne.token)
             .set('Accept', '*/*')
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
+                console.log(res.data)
                 expect(res.data.getPostWithUserId[0].content).toBe('test');
                 done();
             });

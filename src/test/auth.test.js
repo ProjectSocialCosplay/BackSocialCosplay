@@ -127,7 +127,6 @@ export const userRegister = (request) => {
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
-                IntegTestData.user_id = res.data.createUser._id
                 expect(response.status).toBe(200)
                 expect(res.data.createUser.pseudo).toBe("ttt");
                 expect(res.data.createUser.email).toBe("test@gmail.com");

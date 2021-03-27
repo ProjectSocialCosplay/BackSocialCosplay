@@ -6,13 +6,14 @@ export default gql`
         content: String!
         author: User!
         comment: [Comment]
+        likes: [Like]
         updatedAt: Date
     }
 
     extend type Query {
         # Get user Post
         getPostWithUserId(id: ID!): [Post]!
-        
+
         #Get User 
         getAllPost: [Post]!
     }
@@ -20,7 +21,7 @@ export default gql`
     extend type Mutation {
         # Creates a new post
         createPost(content: String!): Post!
-        
+
         # Deletes a user post
         deletePost(id: ID!): Post
     }

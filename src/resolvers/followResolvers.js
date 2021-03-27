@@ -16,7 +16,6 @@ export default {
                 user: userInfo._id,
                 follower: followerId,
             }).save();
-            console.log(follow)
             // Push follower/following to user collection
             await userModel.findOneAndUpdate({_id: follow.user}, {$push: {followers: follow.id}});
             await userModel.findOneAndUpdate({_id: followerId}, {$push: {following: follow.id}});
@@ -48,7 +47,7 @@ export default {
             return await userModel.findOne({_id: userInfo._id}).exec()
         },
         follower: async (follower, args, {models: {userModel}}, info) => {
-              return await userModel.findOne({_id: follower.follower}).exec()
+            return await userModel.findOne({_id: follower.follower}).exec()
         },
     },
 };

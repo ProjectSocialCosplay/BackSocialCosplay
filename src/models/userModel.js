@@ -55,6 +55,12 @@ const userSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Picture'
     },
+    likes: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Like',
+        },
+    ],
     post:[
         {
             type: Schema.Types.ObjectId,
@@ -85,4 +91,3 @@ userSchema.pre('save', function () {
 const user = mongoose.model('User', userSchema);
 
 export default user;
-

@@ -8,6 +8,7 @@ const {userRegister, userAuth} = require('./auth.test')
 const {post} = require('./post.test')
 const {comment} = require('./comment.test')
 const {follow} = require("./follow.test");
+const {like} = require('./like.test')
 
 describe('Init Test', ()=>{
 
@@ -32,5 +33,7 @@ describe('Init Test', ()=>{
     describe('Post', ()=>{post(request)})
     describe('Comment', ()=>{comment(request)})
     describe('Follow', ()=>{follow(request)})
+    describe('Like', ()=>{like(request)})
+
 })
 
