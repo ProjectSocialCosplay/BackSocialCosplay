@@ -89,9 +89,9 @@ export const post = (request) => {
                 done();
             });
     },);
-    it('Get user post', async (done) => {
+    it('Get post whith post ID', async (done) => {
         const query = `query {
-             getPostWithUserId(id: "${IntegTestDataUserOne._id}") {
+             getPost(id: "${IntegTestDataUserOne.postId}") {
                         _id
                         content
                         author{
@@ -106,9 +106,10 @@ export const post = (request) => {
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
+                console.log(res)
                 expect(response.status).toBe(200)
                 console.log(res.data)
-                expect(res.data.getPostWithUserId[0].content).toBe('test');
+                expect(res.data.getPost[0].content).toBe('test');
                 done();
             });
     },);
