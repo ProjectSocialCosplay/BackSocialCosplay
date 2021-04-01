@@ -12,7 +12,7 @@ export default gql`
 
     extend type Query {
         # Get user Post
-        getPostWithUserId(id: ID!): [Post]!
+        getPost(id: ID!): [Post]!
 
         #Get User 
         getAllPost: [Post]!
