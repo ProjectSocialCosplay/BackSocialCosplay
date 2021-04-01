@@ -2,6 +2,7 @@ import {AuthenticationError} from 'apollo-server-express'
 import bcrypt from "bcrypt"
 import jwt from "../utils/jwt"
 import pictureModel from "../models/pictureModel";
+import followModel from "../models/followModel";
 
 export default {
     Query: {
@@ -51,10 +52,18 @@ export default {
         },
         profile_image: async (user, args, {models: {pictureModel}}, info) => {
             const data = await pictureModel.findOne({author: user._id, _id: user.profile_image_url}).exec();
-            data.url = 'https://' + process.env.BUCKETNAME + '.s3.eu-central-1.amazonaws.com/users/avatars/' + data.key
-            if(data) {
+            if (data) {
+                data.url = 'https://' + process.env.BUCKETNAME + '.s3.eu-central-1.amazonaws.com/users/avatars/' + data.key
                 return data
             }
+            // TODO: Voir le retour de l'erreur
+            return new Error("Error return image")
+        },
+        followers: async ({id}, args, {models: {followModel}}, info) => {
+            return await followModel.findOne({user: id}).exec();
+        },
+        following: async ({id}, args, {models: {followModel}}, info) => {
+            return await followModel.findOne({follower: id}).exec();
         }
     },
 };

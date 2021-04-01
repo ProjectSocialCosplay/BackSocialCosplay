@@ -1,4 +1,4 @@
-const {IntegTestDataUserOne,IntegTestDataUserTwo } = require('./context');
+const {IntegTestDataUserOne, IntegTestDataUserTwo} = require('./context');
 export const follow = (request) => {
     it('create user two', async (done) => {
         const query = ` mutation {
@@ -44,8 +44,38 @@ export const follow = (request) => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
+                console.log(res.data)
                 expect(res.data.createFollow.user._id).toBe(IntegTestDataUserOne._id);
                 expect(res.data.createFollow.follower._id).toBe(IntegTestDataUserTwo._id);
+                //  expect(res.errors[0].message).toBe('You are not authenticated');
+                done();
+            });
+    });
+    it('Get Follower from user', async (done) => {
+        const query = ` query{
+                          user(id:"${IntegTestDataUserOne._id}")
+                          {
+                            _id
+                            followers {
+                                _id
+                                user{
+                                    _id
+                                }
+                                follower{
+                                    _id
+                                }
+                            }
+                          }
+                        }`;
+        request
+            .post('/graphql')
+            .set('Content-Type', 'application/json')
+            .set('token', IntegTestDataUserOne.token)
+            .set('Accept', '*/*')
+            .send({query})
+            .then(response => {
+                let res = JSON.parse(response.text)
+                console.log(res)
                 //  expect(res.errors[0].message).toBe('You are not authenticated');
                 done();
             });

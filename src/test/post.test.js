@@ -108,9 +108,9 @@ export const post = (request) => {
                 let res = JSON.parse(response.text)
                 console.log(res)
                 expect(response.status).toBe(200)
-                console.log(res.data)
-                expect(res.data.getPost[0].content).toBe('test');
-                done();
+                expect(res.data.getPostWithUserId[0].content).toBe('test');
+              //  expect(res.data.getPost[0].content).toBe('test');
+                done(); 
             });
     },);
 }
