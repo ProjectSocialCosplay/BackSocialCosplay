@@ -46,6 +46,11 @@ export default gql`
             birthdate: Date,
             profile_image_url: String
         ): User!
+        updateUser(
+             pseudo: String!,
+             email: String!,
+             birthdate: Date
+        ): User!
     }
 
 `;
