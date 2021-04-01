@@ -279,11 +279,11 @@ export const userAuth = (request) => {
                 .post('/graphql')
                 .set('Content-Type', 'application/json')
                 .set('Accept', '*/*')
-                .set('token', IntegTestData.token)
+                .set('token', IntegTestDataUserOne.token)
                 .send({query})
                 .then(response => {
                     let res = JSON.parse(response.text)
-                    IntegTestData.user_id = res.data.updateUser._id
+                    IntegTestDataUserOne.user_id = res.data.updateUser._id
                     expect(response.status).toBe(200)
                     expect(res.data.updateUser.pseudo).toBe("linda");
                     expect(res.data.updateUser.email).toBe("linda@gmail.com");
