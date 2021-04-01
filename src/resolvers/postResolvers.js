@@ -2,11 +2,11 @@ import {AuthenticationError} from 'apollo-server-express'
 
 export default {
     Query: {
-        getPostWithUserId: async (parent, { id }, { models: { postModel }, userInfo }, info) => {
+        getPost: async (parent, { id }, { models: { postModel }, userInfo }, info) => {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            return await postModel.find({author: id}).sort({updatedAt: -1}).exec()
+            return await postModel.find({_id: id}).sort({updatedAt: -1}).exec()
         },
 
         getAllPost: async (parent, args, { models: { postModel }, userInfo }, info) => {
