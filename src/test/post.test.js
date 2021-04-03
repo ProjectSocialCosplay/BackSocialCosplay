@@ -106,7 +106,6 @@ export const post = (request) => {
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
-                console.log(res)
                 expect(response.status).toBe(200)
                 expect(res.data.getPostWithUserId[0].content).toBe('test');
               //  expect(res.data.getPost[0].content).toBe('test');

@@ -43,8 +43,8 @@ export default {
 
     },
     Follow: {
-        user: async ({parent}, args, {models: {userModel},userInfo}, info) => {
-            return await userModel.findOne({_id: userInfo._id}).exec()
+        user: async (follower, args, {models: {userModel},userInfo}, info) => {
+            return await userModel.findOne({_id: follower.user}).exec()
         },
         follower: async (follower, args, {models: {userModel}}, info) => {
             return await userModel.findOne({_id: follower.follower}).exec()

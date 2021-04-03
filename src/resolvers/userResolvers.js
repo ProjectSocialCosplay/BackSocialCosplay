@@ -1,8 +1,6 @@
 import {AuthenticationError} from 'apollo-server-express'
 import bcrypt from "bcrypt"
 import jwt from "../utils/jwt"
-import pictureModel from "../models/pictureModel";
-import followModel from "../models/followModel";
 
 export default {
     Query: {
@@ -43,18 +41,22 @@ export default {
             return await userModel.create({pseudo, email, password, birthdate});
         },
         updateUser: async (parent, {pseudo, email, birthdate}, {models: {userModel}, userInfo}, info) => {
-         if (!userInfo) {
-             throw new AuthenticationError('You are not authenticated');
-         }
-         let testUpdate = await userModel.findOneAndUpdate({_id: userInfo._id}, {pseudo: pseudo, email:email, birthdate: birthdate},
-         (err, result) => {
-             if (err) {
-             throw new Error("User not updated")
-             } else {
-               return(result)
-             }
-           })
-         return testUpdate;
+            if (!userInfo) {
+                throw new AuthenticationError('You are not authenticated');
+            }
+            let testUpdate = await userModel.findOneAndUpdate({_id: userInfo._id}, {
+                    pseudo: pseudo,
+                    email: email,
+                    birthdate: birthdate
+                },
+                (err, result) => {
+                    if (err) {
+                        throw new Error("User not updated")
+                    } else {
+                        return (result)
+                    }
+                })
+            return testUpdate;
         },
     },
     User: {
@@ -74,10 +76,10 @@ export default {
             return new Error("Error return image")
         },
         followers: async ({id}, args, {models: {followModel}}, info) => {
-            return await followModel.findOne({user: id}).exec();
+            return await followModel.find({user: id}).exec()
         },
         following: async ({id}, args, {models: {followModel}}, info) => {
-            return await followModel.findOne({follower: id}).exec();
+            return await followModel.find({follower: id}).exec()
         }
     },
 };
