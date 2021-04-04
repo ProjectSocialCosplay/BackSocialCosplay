@@ -51,7 +51,7 @@ export const follow = (request) => {
                                  _id
                                  pseudo
                             }
-                            follower {
+                            following {
                                 _id
                                 pseudo
                             }
@@ -66,8 +66,9 @@ export const follow = (request) => {
             .then(response => {
                 let res = JSON.parse(response.text)
                 expect(response.status).toBe(200)
+                console.log(res)
                 expect(res.data.createFollow.user._id).toBe(IntegTestDataUserOne._id);
-                expect(res.data.createFollow.follower._id).toBe(IntegTestDataUserTwo._id);
+                expect(res.data.createFollow.following._id).toBe(IntegTestDataUserTwo._id);
                 //  expect(res.errors[0].message).toBe('You are not authenticated');
                 done();
             });
@@ -81,7 +82,7 @@ export const follow = (request) => {
                                  _id
                                  pseudo
                             }
-                            follower {
+                            following {
                                 _id
                                 pseudo
                             }
@@ -115,7 +116,7 @@ export const follow = (request) => {
                                     _id
                                     pseudo
                                 }
-                                follower{
+                                following{
                                     _id
                                     pseudo
                                 }
@@ -126,7 +127,7 @@ export const follow = (request) => {
                                     _id
                                     pseudo
                                 }
-                                follower{
+                                following{
                                     _id
                                     pseudo
                                 }
@@ -141,6 +142,7 @@ export const follow = (request) => {
             .send({query})
             .then(response => {
                 let res = JSON.parse(response.text)
+                console.log(res)
                 expect(res.data.user.followers[0].user._id).toBe(IntegTestDataUserOne._id);
                 expect(res.data.user.following[0].user._id).toBe(IntegTestDataUserTwo._id);
                 //  expect(res.errors[0].message).toBe('You are not authenticated');

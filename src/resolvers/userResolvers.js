@@ -79,7 +79,7 @@ export default {
             return await followModel.find({user: id}).exec()
         },
         following: async ({id}, args, {models: {followModel}}, info) => {
-            return await followModel.find({follower: id}).exec()
+            return await followModel.find({following: id}).exec()
         }
     },
 };
