@@ -43,7 +43,7 @@ export default {
                 return [];
             }
             return userModel.find({
-                $or: [{username: new RegExp(searchQuery, 'i')}, {fullName: new RegExp(searchQuery, 'i')}],
+                $or: [{pseudo: new RegExp(searchQuery, 'i')}],
                 _id: {
                     $ne: userInfo._id,
                 },
