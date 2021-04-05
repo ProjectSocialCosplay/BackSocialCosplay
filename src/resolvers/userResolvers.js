@@ -75,11 +75,12 @@ export default {
             // TODO: Voir le retour de l'erreur
             return new Error("Error return image")
         },
-        followers: async ({id}, args, {models: {followModel}}, info) => {
-            return await followModel.find({user: id}).exec()
+        followers: async (user, args, {models: {followModel}}, info) => {
+            console.log(user)
+            return await followModel.find({follower: user._id}).exec()
         },
-        following: async ({id}, args, {models: {followModel}}, info) => {
-            return await followModel.find({following: id}).exec()
+        following: async (user, args, {models: {followModel}}, info) => {
+            return await followModel.find({user: user._id}).exec()
         }
     },
 };

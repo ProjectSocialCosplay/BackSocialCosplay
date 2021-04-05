@@ -4,8 +4,8 @@ export default gql`
 
   type Follow {
     _id: ID!
-    user: User!
-    following: User!
+    user: User! #user suit  
+    follower: User!
   }
   
   extend type Mutation {
