@@ -16,6 +16,7 @@ export default gql`
         comment: [comment]
         followers: [Follow] # disciple
         following: [Follow] # personnes qu'il suit
+        feed:[Post]
     }
 
     type comment {
