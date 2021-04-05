@@ -35,6 +35,20 @@ export default {
                 token
             };
         },
+        searchUsers: async (parent, { searchQuery }, { models: {userModel},userInfo}) => {
+            if (!userInfo) {
+                throw new AuthenticationError('You are not authenticated');
+            }
+            if (!searchQuery) {
+                return [];
+            }
+            return userModel.find({
+                $or: [{username: new RegExp(searchQuery, 'i')}, {fullName: new RegExp(searchQuery, 'i')}],
+                _id: {
+                    $ne: userInfo._id,
+                },
+            }).limit(50);
+        },
     },
     Mutation: {
         createUser: async (parent, {pseudo, email, password, birthdate}, {models: {userModel}}, info) => {
