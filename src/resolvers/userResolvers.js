@@ -1,8 +1,6 @@
 import {AuthenticationError} from 'apollo-server-express'
 import bcrypt from "bcrypt"
 import jwt from "../utils/jwt"
-import pictureModel from "../models/pictureModel";
-import followModel from "../models/followModel";
 
 export default {
     Query: {
@@ -43,18 +41,18 @@ export default {
             return await userModel.create({pseudo, email, password, birthdate});
         },
         updateUser: async (parent, {pseudo, email, birthdate}, {models: {userModel}, userInfo}, info) => {
-         if (!userInfo) {
-             throw new AuthenticationError('You are not authenticated');
-         }
-         let testUpdate = await userModel.findOneAndUpdate({_id: userInfo._id}, {pseudo: pseudo, email:email, birthdate: birthdate},
-         (err, result) => {
-             if (err) {
-             throw new Error("User not updated")
-             } else {
-               return(result)
-             }
-           })
-         return testUpdate;
+            if (!userInfo) {
+                throw new AuthenticationError('You are not authenticated');
+            }
+            let testUpdate = await userModel.findOneAndUpdate({_id: userInfo._id}, {pseudo: pseudo, email:email, birthdate: birthdate},
+                (err, result) => {
+                    if (err) {
+                        throw new Error("User not updated")
+                    } else {
+                        return(result)
+                    }
+                })
+            return testUpdate;
         },
     },
     User: {
@@ -70,14 +68,13 @@ export default {
                 data.url = 'https://' + process.env.BUCKETNAME + '.s3.eu-central-1.amazonaws.com/users/avatars/' + data.key
                 return data
             }
-            // TODO: Voir le retour de l'erreur
-            return new Error("Error return image")
+            return null
         },
-        followers: async ({id}, args, {models: {followModel}}, info) => {
-            return await followModel.findOne({user: id}).exec();
+        followers: async (user, args, {models: {followModel}}, info) => {
+            return await followModel.find({follower: user._id}).exec()
         },
-        following: async ({id}, args, {models: {followModel}}, info) => {
-            return await followModel.findOne({follower: id}).exec();
+        following: async (user, args, {models: {followModel}}, info) => {
+            return await followModel.find({user: user._id}).exec();
         }
     },
 };

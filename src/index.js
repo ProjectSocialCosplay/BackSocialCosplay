@@ -16,6 +16,7 @@ import commentModel from './models/commentModel';
 import likeModel from './models/likeModel';
 import pictureModel from './models/pictureModel'
 import followModel from "./models/followModel";
+
 dotenv.config({
     path: `./.env.${process.env.NODE_ENV}`
 });
@@ -30,15 +31,15 @@ app.use(
         origin:
             process.env.NODE_ENV === "production"
                 ? process.env.DOMAINE_NAME
-                : "http://localhost:"+process.env.PORT,
+                : "http://localhost:" + process.env.PORT,
     })
 );
 
 const server = new ApolloServer({
     typeDefs: schemas,
     resolvers,
-    context: async ({req})=>{
-        if(req){
+    context: async ({req}) => {
+        if (req) {
             const userInfo = await jwt.checkUser(req)
             return {
                 userInfo,
@@ -55,11 +56,11 @@ const server = new ApolloServer({
         }
     },
     formatError(err) {
-        if(process.env.NODE_ENV !=='test'){
-            console.log(uuid() +": " + err.message)
+        if (process.env.NODE_ENV !== 'test') {
+            console.log(uuid() + ": " + err.message)
         }
         return {
-           // ErrorEventId: uuid(),
+            // ErrorEventId: uuid(),
             message: err.message,
         };
     }
@@ -71,7 +72,9 @@ server.applyMiddleware({app, path: '/graphql'});
 mongodbconfig.moogoseConnect()
 
 const appServ = app.listen(process.env.PORT, () => {
-    console.log(`🚀 Server listening on port ${process.env.PORT}`);
+    if (process.env.NODE_ENV !== 'test') {
+        console.log(`🚀 Server listening on port ${process.env.PORT}`);
+    }
 });
 
 export {

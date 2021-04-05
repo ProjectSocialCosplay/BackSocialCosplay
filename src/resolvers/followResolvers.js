@@ -17,8 +17,8 @@ export default {
                 follower: followerId,
             }).save();
             // Push follower/following to user collection
-            await userModel.findOneAndUpdate({_id: follow.user}, {$push: {followers: follow.id}});
-            await userModel.findOneAndUpdate({_id: followerId}, {$push: {following: follow.id}});
+            await userModel.findOneAndUpdate({_id: follow.user}, {$push: {following: follow.id}});
+            await userModel.findOneAndUpdate({_id: followerId}, {$push: {followers: follow.id}});
 
             return follow;
         },
@@ -37,14 +37,13 @@ export default {
             // Delete follow from users collection
             await userModel.findOneAndUpdate({_id: follow.user}, {$pull: {followers: follow.id}});
             await userModel.findOneAndUpdate({_id: follow.follower}, {$pull: {following: follow.id}});
-
             return follow;
         },
 
     },
     Follow: {
-        user: async ({parent}, args, {models: {userModel},userInfo}, info) => {
-            return await userModel.findOne({_id: userInfo._id}).exec()
+        user: async (following, args, {models: {userModel},userInfo}, info) => {
+            return  await userModel.findOne({_id: following.user}).exec()
         },
         follower: async (follower, args, {models: {userModel}}, info) => {
             return await userModel.findOne({_id: follower.follower}).exec()

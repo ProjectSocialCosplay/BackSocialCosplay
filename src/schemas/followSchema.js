@@ -4,7 +4,7 @@ export default gql`
 
   type Follow {
     _id: ID!
-    user: User!
+    user: User! #user suit  
     follower: User!
   }
   

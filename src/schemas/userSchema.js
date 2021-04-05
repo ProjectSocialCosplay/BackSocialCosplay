@@ -14,8 +14,8 @@ export default gql`
         likes: [Like]
         profile_image: Picture
         comment: [comment]
-        followers: [Follow]
-        following: [Follow]
+        followers: [Follow] # disciple
+        following: [Follow] # personnes qu'il suit
     }
 
     type comment {
