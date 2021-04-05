@@ -82,12 +82,11 @@ export default {
         },
         feed: async (user, args, {models: {followModel, postModel}, userInfo}, info) => {
             let data = await followModel.find({_id: user.following}).exec()
-            let res = await postModel.find({
-                $or: [
-                    {author: {$in: data[0].follower}},
-                    {author: userInfo._id}]
-            }).sort({createdAt: -1})
-            console.log(res)
+            let res = await postModel.find({author: userInfo._id}).sort({createdAt: -1})
+            if (data.length > 0) {
+                res = res.concat(await postModel.find({author: {$in: data[0].follower}}).sort({createdAt: -1}))
+            }
+            return res.sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
         },
     },
 };
