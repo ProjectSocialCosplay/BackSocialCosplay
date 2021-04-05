@@ -74,7 +74,7 @@ export default {
             return await followModel.find({follower: user._id}).exec()
         },
         following: async (user, args, {models: {followModel}}, info) => {
-            return await followModel.find({user: user._id}).exec();
+            return await followModel.find({_id: user.following}).exec()
         }
     },
 };
