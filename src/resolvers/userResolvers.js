@@ -44,16 +44,12 @@ export default {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            let testUpdate = await userModel.findOneAndUpdate({_id: userInfo._id}, {
-                    pseudo: pseudo,
-                    email: email,
-                    birthdate: birthdate
-                },
+            let testUpdate = await userModel.findOneAndUpdate({_id: userInfo._id}, {pseudo: pseudo, email:email, birthdate: birthdate},
                 (err, result) => {
                     if (err) {
                         throw new Error("User not updated")
                     } else {
-                        return (result)
+                        return(result)
                     }
                 })
             return testUpdate;
@@ -72,15 +68,13 @@ export default {
                 data.url = 'https://' + process.env.BUCKETNAME + '.s3.eu-central-1.amazonaws.com/users/avatars/' + data.key
                 return data
             }
-            // TODO: Voir le retour de l'erreur
-            return new Error("Error return image")
+            return null
         },
         followers: async (user, args, {models: {followModel}}, info) => {
-            console.log(user)
             return await followModel.find({follower: user._id}).exec()
         },
         following: async (user, args, {models: {followModel}}, info) => {
-            return await followModel.find({user: user._id}).exec()
+            return await followModel.find({user: user._id}).exec();
         }
     },
 };

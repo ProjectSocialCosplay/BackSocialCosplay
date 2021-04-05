@@ -5,7 +5,7 @@ export default gql`
         _id: ID!
         comment: String!
         post: Post!
-        createdAt: String!
+        createdAt: Date!
         like: [Like]
         author: User!
     }
