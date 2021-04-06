@@ -14,7 +14,8 @@ import userModel from './models/userModel';
 import postModel from './models/postModel';
 import commentModel from './models/commentModel';
 import likeModel from './models/likeModel';
-import pictureModel from './models/pictureModel'
+import pictureModel from './models/pictureModel';
+import eventModel from './models/eventModel'
 
 dotenv.config({
     path: `./.env.${process.env.NODE_ENV}`
@@ -47,7 +48,8 @@ const server = new ApolloServer({
                     postModel,
                     likeModel,
                     pictureModel,
-                    commentModel
+                    commentModel,
+                    eventModel
                 },
                 req
             };
