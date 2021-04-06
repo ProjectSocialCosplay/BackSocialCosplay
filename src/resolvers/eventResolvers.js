@@ -2,28 +2,25 @@ import {AuthenticationError} from 'apollo-server-express'
 
 
 export default {
-    Query: {
-
-    },
+    Query: {},
     Mutation: {
-         createEvent: async (parent, { event_name, id_organizer, event_date, event_banner_image, event_url, description, medias, participants, locations }, { models: {userModel, pictureModel}, userInfo }, info) => {
+        createEvent: async (parent, {event_name, event_date_start, event_date_end, event_url, description, location}, {
+            models: {eventModel},
+            userInfo
+        }, info) => {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            let id_organizer = userInfo._id
-            let event_banner_image =
-            const newEvent = await new eventModel({
+            const author = userInfo._id
+            return await new eventModel({
                 event_name,
-                id_organizer,
-                event_date,
-                event_banner_image,
+                author,
+                event_date_start,
+                event_date_end,
                 event_url,
                 description,
-                medias,
-                participants,
                 location
-            }).save();
-            console.log(id_organizer);
-         },
+            }).save()
+        },
     },
 }
