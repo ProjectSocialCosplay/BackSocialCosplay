@@ -2,14 +2,16 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
 
-  type Command {
-    command: String!
+  type Chatbot {
+    author: User!
     message: String!
-    timeout: Int!
-    isActive: Boolean!
   }
 
   extend type Query {
-     getCommand(command: String!): Command!
+    getMessage(message: String!): Chatbot!
+  }
+
+  extend type Mutation {
+    sendMessage(message: String!): Chatbot!
   }
 `;
