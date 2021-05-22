@@ -44,12 +44,16 @@ export default {
             if (!userInfo) {
                 throw new AuthenticationError('You are not authenticated');
             }
-            let testUpdate = await userModel.findOneAndUpdate({_id: userInfo._id}, {pseudo: pseudo, email:email, birthdate: birthdate},
+            let testUpdate = await userModel.findOneAndUpdate({_id: userInfo._id}, {
+                    pseudo: pseudo,
+                    email: email,
+                    birthdate: birthdate
+                },
                 (err, result) => {
                     if (err) {
                         throw new Error("User not updated")
                     } else {
-                        return(result)
+                        return (result)
                     }
                 })
             return testUpdate;
@@ -75,6 +79,14 @@ export default {
         },
         following: async (user, args, {models: {followModel}}, info) => {
             return await followModel.find({_id: user.following}).exec()
-        }
+        },
+        feed: async (user, args, {models: {followModel, postModel}, userInfo}, info) => {
+            let data = await followModel.find({_id: user.following}).exec()
+            let res = await postModel.find({author: userInfo._id}).sort({createdAt: -1})
+            if (data.length > 0) {
+                res = res.concat(await postModel.find({author: {$in: data[0].follower}}).sort({createdAt: -1}))
+            }
+            return res.sort((a, b) => a.createdAt > b.createdAt ? -1 : 1)
+        },
     },
 };
