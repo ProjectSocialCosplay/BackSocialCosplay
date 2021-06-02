@@ -37,6 +37,8 @@ export default gql`
         getAuthUser: User!
         login(email: String!, password: String!): Token!
         getProfileImage(Image: String): Picture
+        # Searches users by username or fullName
+        searchUsers(searchQuery: String!): [User]
     }
 
     extend type Mutation {
