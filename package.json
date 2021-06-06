@@ -7,13 +7,12 @@
     "start": "node ./build/index.js",
     "start-dev": "NODE_ENV=development nodemon  --trace-deprecation  --exec babel-node src/index.js",
     "test": "NODE_ENV=test  jest  --testEnvironment=node --maxWorkers=1 --verbose --forceExit --watchAll --maxWorkers=1 src/test/index.test.js",
-    "build-server": "babel -d ./build ./server -s"
+    "build-server": "babel -d ./build ./src -s"
   },
   "dependencies": {
-    "@babel/core": "^7.14.3",
     "@babel/node": "^7.14.2",
-    "@babel/preset-env": "^7.14.4",
     "@babel/register": "^7.13.16",
+    "@babel/runtime": "^7.14.0",
     "apollo-server-express": "^2.25.0",
     "aws-sdk": "^2.922.0",
     "babel-cli": "^6.26.0",
@@ -30,7 +29,13 @@
     "mongoose-unique-validator": "^2.0.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/plugin-proposal-async-generator-functions": "^7.14.2",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
     "apollo-server-testing": "^2.25.0",
+    "babel-polyfill": "^6.26.0",
     "jest": "^26.6.3",
     "nodemon": "^2.0.7",
     "supertest": "^6.1.3"
