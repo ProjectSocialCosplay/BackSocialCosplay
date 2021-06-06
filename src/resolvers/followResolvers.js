@@ -1,6 +1,6 @@
-const {AuthenticationError} = require('apollo-server-express')
+import {AuthenticationError} from 'apollo-server-express'
 
-module.exports = {
+export default {
     Mutation: {
         /**
          * Creates a following/follower relationship between users

@@ -1,7 +1,7 @@
-const bcrypt = require('bcrypt');
-const mongoose = require('mongoose');
+const bcrypt = require('bcrypt')
+const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
-const uniqueValidator = require('mongoose-unique-validator');
+const uniqueValidator = require("mongoose-unique-validator");
 
 const userSchema = new mongoose.Schema({
     _isActive: {
@@ -90,4 +90,4 @@ userSchema.pre('save', function () {
 
 const user = mongoose.model('User', userSchema);
 
-module.exports =  user;
+export default user;

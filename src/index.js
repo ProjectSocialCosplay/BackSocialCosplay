@@ -1,21 +1,25 @@
-const cors = require('cors');
-const express = require('express')
-const {ApolloServer, ApolloError} = require('apollo-server-express')
-const jwt = require('./utils/jwt');
-const {uuid} = require('./utils/tools');
-const {mongodbconfig} = require('./config/db');
-const bodyParser = require("body-parser");
-require('dotenv').config();
-const test = require('./schemas');
-const resolvers = require('./resolvers');
+import dotenv from 'dotenv'
+import cors from 'cors'
+import express from 'express'
+import {ApolloServer, ApolloError} from 'apollo-server-express'
+import jwt from './utils/jwt';
+import {uuid} from './utils/tools'
+import mongodbconfig from './config/db'
+import * as bodyParser from "body-parser";
 
-const userModel = require('./models/userModel');
-const postModel = require('./models/postModel');
-const commentModel = require('./models/commentModel');
-const likeModel = require('./models/likeModel');
-const pictureModel = require('./models/pictureModel');
-const followModel = require('./models/followModel');
+import schemas from './schemas'
+import resolvers from './resolvers'
 
+import userModel from './models/userModel';
+import postModel from './models/postModel';
+import commentModel from './models/commentModel';
+import likeModel from './models/likeModel';
+import pictureModel from './models/pictureModel'
+import followModel from "./models/followModel";
+
+dotenv.config({
+    path: `./.env.${process.env.NODE_ENV}`
+});
 
 const app = express();
 app.use(bodyParser.json({limit: '10mb', extended: true}))
@@ -32,7 +36,7 @@ app.use(
 );
 
 const server = new ApolloServer({
-    typeDefs: test,
+    typeDefs: schemas,
     resolvers,
     context: async ({req}) => {
         if (req) {
@@ -52,7 +56,7 @@ const server = new ApolloServer({
         }
     },
     formatError(err) {
-        if (process.env.NODE_ENV !== require('test')) {
+        if (process.env.NODE_ENV !== 'test') {
             console.log(uuid() + ": " + err.message)
         }
         return {
@@ -71,7 +75,7 @@ const appServ = app.listen(process.env.PORT, () => {
         console.log(`🚀 App Launch Server listening on port ${process.env.PORT}`);
 });
 
-module.exports = {
+export {
     appServ,
     server
 };

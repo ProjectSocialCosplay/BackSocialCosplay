@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
 const Schema = mongoose.Schema;
 
 /**
@@ -20,4 +21,4 @@ const followSchema = new mongoose.Schema(
     }
 );
 
-module.exports =  mongoose.model('Follow', followSchema);
+export default mongoose.model('Follow', followSchema);

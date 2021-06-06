@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-express');
+import {gql} from 'apollo-server-express';
 
-module.exports =  gql`
+export default gql`
     type Like {
         _id: ID!
         post: Post!

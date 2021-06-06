@@ -1,10 +1,9 @@
-const userResolvers = require( './userResolvers')
-const postResolver  = require( "./postResolvers");
-const likeResolvers = require( './likeResolvers');
-const commentResolvers = require( './commentResolvers');
-const pictureResolvers = require( "./pictureResolvers");
-const followResolvers = require( "./followResolvers");
+import userResolvers from './userResolvers'
+import postResolver  from "./postResolvers";
+import likeResolvers from './likeResolvers';
+import commentResolvers from './commentResolvers';
+import pictureResolvers from "./pictureResolvers";
+import followResolvers from "./followResolvers";
 
-
-module.exports = {  userResolvers, postResolver, commentResolvers, likeResolvers, pictureResolvers, followResolvers};
+export default  [userResolvers, postResolver, commentResolvers, likeResolvers, pictureResolvers, followResolvers];
 

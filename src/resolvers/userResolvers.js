@@ -1,8 +1,8 @@
-const {AuthenticationError} = require('apollo-server-express')
-const {bcrypt} = require("bcrypt");
-const {jwt} = require("../utils/jwt");
+import {AuthenticationError} from 'apollo-server-express'
+import bcrypt from "bcrypt"
+import jwt from "../utils/jwt"
 
-module.exports =  {
+export default {
     Query: {
         user: async (parent, {id}, {models: {userModel}, userInfo}, info) => {
             if (!userInfo) {
