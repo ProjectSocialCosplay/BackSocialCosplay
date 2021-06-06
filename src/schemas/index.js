@@ -18,5 +18,5 @@ const linkSchema = gql`
 `;
 
 module.exports = {
-    linkSchema, userSchema, postSchema, pictureSchema, commentSchema, likeSchema, followSchema;
+    linkSchema, userSchema, postSchema, pictureSchema, commentSchema, likeSchema, followSchema
 }
