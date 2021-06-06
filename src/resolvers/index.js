@@ -5,5 +5,9 @@ const commentResolvers = require( './commentResolvers');
 const pictureResolvers = require( "./pictureResolvers");
 const followResolvers = require( "./followResolvers");
 
-module.exports = {  userResolvers, postResolver, commentResolvers, likeResolvers, pictureResolvers, followResolvers};
-
+const test = ()=>{
+    return [ userResolvers, postResolver, commentResolvers, likeResolvers, pictureResolvers, followResolvers]
+}
+module.exports = {
+    test
+}
