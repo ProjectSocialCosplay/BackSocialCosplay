@@ -4,9 +4,10 @@
   "description": "Api back cosplay social network",
   "main": "src/index.js",
   "scripts": {
-    "start": "node  --exec babel-node src/index.js",
+    "start": "node ./build/index.js",
     "start-dev": "NODE_ENV=development nodemon  --trace-deprecation  --exec babel-node src/index.js",
-    "test": "NODE_ENV=test  jest  --testEnvironment=node --maxWorkers=1 --verbose --forceExit --watchAll --maxWorkers=1 src/test/index.test.js"
+    "test": "NODE_ENV=test  jest  --testEnvironment=node --maxWorkers=1 --verbose --forceExit --watchAll --maxWorkers=1 src/test/index.test.js",
+    "build-server": "babel -d ./build ./server -s"
   },
   "dependencies": {
     "@babel/core": "^7.14.3",
