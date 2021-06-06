@@ -1,4 +1,5 @@
-const gql =  require('apollo-server-express');
+const {gql} =  require('apollo-server-express');
+
 const userSchema =  require('./userSchema');
 const postSchema =  require('./postSchema');
 const pictureSchema =  require ('./pictureSchema');
