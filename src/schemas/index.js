@@ -17,4 +17,6 @@ const linkSchema = gql`
     }
 `;
 
-export default [linkSchema, userSchema, postSchema, pictureSchema, commentSchema, likeSchema, followSchema];
+module.exports = {
+    linkSchema, userSchema, postSchema, pictureSchema, commentSchema, likeSchema, followSchema;
+}

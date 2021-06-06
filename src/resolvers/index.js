@@ -5,5 +5,5 @@ const commentResolvers = require( './commentResolvers');
 const pictureResolvers = require( "./pictureResolvers");
 const followResolvers = require( "./followResolvers");
 
-export default  [userResolvers, postResolver, commentResolvers, likeResolvers, pictureResolvers, followResolvers];
+module.exports = {  userResolvers, postResolver, commentResolvers, likeResolvers, pictureResolvers, followResolvers};
 
