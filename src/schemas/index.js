@@ -1,4 +1,4 @@
-const {gql} =  require('apollo-server-express');
+const gql =  require('apollo-server-express');
 const userSchema =  require('./userSchema');
 const postSchema =  require('./postSchema');
 const pictureSchema =  require ('./pictureSchema');
@@ -16,6 +16,7 @@ const linkSchema = gql`
         _: Boolean
     }
 `;
+
 const test = ()=>{
     return [linkSchema, userSchema, postSchema, pictureSchema, commentSchema, likeSchema, followSchema]
 }
