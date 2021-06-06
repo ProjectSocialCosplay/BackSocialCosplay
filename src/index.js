@@ -1,21 +1,20 @@
-const {dotenv} = 'dotenv'
-const {cors} = 'cors'
+const cors = require('cors');
 const express = require('express')
 const {ApolloServer, ApolloError} = require('apollo-server-express')
-const jwt = './utils/jwt';
-const {uuid} = './utils/tools'
-const {mongodbconfig} = './config/db'
+const jwt = require('./utils/jwt');
+const {uuid} = require('./utils/tools');
+const {mongodbconfig} = require('./config/db');
 const  bodyParser = "body-parser";
 require('dotenv').config();
-const schemas = './schemas'
-const resolvers = './resolvers'
+const schemas = require('./schemas');
+const resolvers = require('./resolvers');
 
-const userModel = './models/userModel';
-const postModel = './models/postModel';
-const commentModel = './models/commentModel';
-const likeModel = './models/likeModel';
-const pictureModel = './models/pictureModel'
-const followModel = "./models/followModel";
+const userModel = require('./models/userModel');
+const postModel = require('./models/postModel');
+const commentModel = require('./models/commentModel');
+const likeModel = require('./models/likeModel');
+const pictureModel = require('./models/pictureModel');
+const followModel = ('./models/followModel');
 
 
 const app = express();
@@ -53,7 +52,7 @@ const server = new ApolloServer({
         }
     },
     formatError(err) {
-        if (process.env.NODE_ENV !== 'test') {
+        if (process.env.NODE_ENV !== require(test') {
             console.log(uuid() + ": " + err.message)
         }
         return {
