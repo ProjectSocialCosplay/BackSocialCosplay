@@ -1,6 +1,6 @@
 const {AuthenticationError} = require('apollo-server-express')
 
-export default {
+module.exports = {
     Mutation: {
         /**
          * Creates a following/follower relationship between users

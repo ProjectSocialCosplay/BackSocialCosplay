@@ -1,6 +1,6 @@
 const {AuthenticationError} = require('apollo-server-express')
 
-export default {
+module.exports =  {
     Query: {
         getComment: async (parent, {id}, {models: {commentModel}, userInfo}, info) => {
             if (!userInfo) {

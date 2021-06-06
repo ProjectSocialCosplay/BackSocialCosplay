@@ -1,7 +1,7 @@
 const {uploader} = require("../utils/AwsS3.js");
 const {AuthenticationError} = require('apollo-server-express')
 
-export default {
+module.exports =  {
 
     Mutation: {
         uploadProfileImage: async (parent, {base64str}, {models: {userModel, pictureModel}, userInfo}, info) => {

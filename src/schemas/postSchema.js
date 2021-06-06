@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-export default gql`
+module.exports =  gql`
     type Post {
         _id: ID!
         content: String!

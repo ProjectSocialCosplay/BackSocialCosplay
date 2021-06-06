@@ -24,4 +24,4 @@ const pictureSchema = Schema(
     }
 );
 
-export default mongoose.model('Picture', pictureSchema);
+module.exports =  mongoose.model('Picture', pictureSchema);

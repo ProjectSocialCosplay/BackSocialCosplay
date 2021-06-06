@@ -1,6 +1,6 @@
 import {gql} from 'apollo-server-express';
 
-export default gql`
+module.exports =  gql`
     type Comment {
         _id: ID!
         comment: String!

@@ -90,4 +90,4 @@ userSchema.pre('save', function () {
 
 const user = mongoose.model('User', userSchema);
 
-export default user;
+module.exports =  user;

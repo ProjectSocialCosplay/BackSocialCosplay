@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-export default gql`
+module.exports =  gql`
 
   type Follow {
     _id: ID!

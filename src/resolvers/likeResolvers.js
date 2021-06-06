@@ -1,6 +1,6 @@
 const {AuthenticationError} = require('apollo-server-express')
 
-export default {
+module.exports =  {
 
     Mutation: {
         createLike: async (parent, {postId}, { models: { likeModel, postModel, userModel } , userInfo}, info) => {
