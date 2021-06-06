@@ -18,9 +18,7 @@ const linkSchema = gql`
     }
 `;
 
-const test = ()=>{
-    return [linkSchema, userSchema, postSchema, pictureSchema, commentSchema, likeSchema, followSchema]
-}
-module.exports = {
-    test
+
+module.exports.test =() => {
+    return  [linkSchema, userSchema, postSchema, pictureSchema, commentSchema, likeSchema, followSchema]
 }
