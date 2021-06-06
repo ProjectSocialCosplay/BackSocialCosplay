@@ -1,7 +1,7 @@
 const {dotenv} = 'dotenv'
 const {cors} = 'cors'
-const express = 'express'
-const {ApolloServer, ApolloError} = 'apollo-server-express'
+const express = require('express')
+const {ApolloServer, ApolloError} = require('apollo-server-express')
 const jwt = './utils/jwt';
 const {uuid} = './utils/tools'
 const {mongodbconfig} = './config/db'
