@@ -6,7 +6,7 @@ const jwt = './utils/jwt';
 const {uuid} = './utils/tools'
 const {mongodbconfig} = './config/db'
 const  bodyParser = "body-parser";
-
+require('dotenv').config();
 const schemas = './schemas'
 const resolvers = './resolvers'
 
@@ -17,7 +17,6 @@ const likeModel = './models/likeModel';
 const pictureModel = './models/pictureModel'
 const followModel = "./models/followModel";
 
-dotenv.config();
 
 const app = express();
 app.use(bodyParser.json({limit: '10mb', extended: true}))
