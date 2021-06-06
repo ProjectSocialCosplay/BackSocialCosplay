@@ -1,4 +1,4 @@
-const dotenv = 'dotenv'
+const {dotenv} = 'dotenv'
 const {cors} = 'cors'
 const express = 'express'
 const {ApolloServer, ApolloError} = 'apollo-server-express'
@@ -17,9 +17,7 @@ const likeModel = './models/likeModel';
 const pictureModel = './models/pictureModel'
 const followModel = "./models/followModel";
 
-dotenv.config({
-    path: `./.env.${process.env.NODE_ENV}`
-});
+dotenv.config();
 
 const app = express();
 app.use(bodyParser.json({limit: '10mb', extended: true}))
