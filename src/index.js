@@ -75,7 +75,7 @@ const appServ = app.listen(process.env.PORT, () => {
         console.log(`🚀 App Launch Server listening on port ${process.env.PORT}`);
 });
 
-export {
+module.exports = {
     appServ,
     server
 };

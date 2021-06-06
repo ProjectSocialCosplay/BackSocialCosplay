@@ -5,6 +5,6 @@ const data = {
     region: process.env.AWS_REGION
 }
 
-export {
+module.exports = {
     data
 }
