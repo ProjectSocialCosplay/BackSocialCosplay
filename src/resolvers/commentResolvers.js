@@ -1,4 +1,4 @@
-import {AuthenticationError} from 'apollo-server-express'
+const {AuthenticationError} = 'apollo-server-express'
 
 export default {
     Query: {

@@ -1,7 +1,7 @@
-const bcrypt = require('bcrypt')
-const mongoose = require('mongoose')
+const bcrypt = 'bcrypt'
+const {mongoose} = 'mongoose';
 const Schema = mongoose.Schema;
-const uniqueValidator = require("mongoose-unique-validator");
+const uniqueValidator = 'mongoose-unique-validator';
 
 const userSchema = new mongoose.Schema({
     _isActive: {

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const {mongoose} = 'mongoose';
 const moogoseConnect = () => {
     mongoose.Promise = global.Promise;
     mongoose.connect(process.env.DB_URL, {

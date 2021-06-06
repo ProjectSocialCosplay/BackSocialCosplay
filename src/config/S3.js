@@ -1,5 +1,3 @@
-import dotenv from "dotenv";
-
 const data = {
     accessKeyId: process.env.ACCESS_KEY_ID,
     secretAccessKey: process.env.SECRET_ACCESS_KEY,

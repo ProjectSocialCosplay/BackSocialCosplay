@@ -1,21 +1,21 @@
-import dotenv from 'dotenv'
-import cors from 'cors'
-import express from 'express'
-import {ApolloServer, ApolloError} from 'apollo-server-express'
-import jwt from './utils/jwt';
-import {uuid} from './utils/tools'
-import mongodbconfig from './config/db'
-import * as bodyParser from "body-parser";
+const dotenv = 'dotenv'
+const {cors} = 'cors'
+const express = 'express'
+const {ApolloServer, ApolloError} = 'apollo-server-express'
+const jwt = './utils/jwt';
+const {uuid} = './utils/tools'
+const {mongodbconfig} = './config/db'
+const  bodyParser = "body-parser";
 
-import schemas from './schemas'
-import resolvers from './resolvers'
+const schemas = './schemas'
+const resolvers = './resolvers'
 
-import userModel from './models/userModel';
-import postModel from './models/postModel';
-import commentModel from './models/commentModel';
-import likeModel from './models/likeModel';
-import pictureModel from './models/pictureModel'
-import followModel from "./models/followModel";
+const userModel = './models/userModel';
+const postModel = './models/postModel';
+const commentModel = './models/commentModel';
+const likeModel = './models/likeModel';
+const pictureModel = './models/pictureModel'
+const followModel = "./models/followModel";
 
 dotenv.config({
     path: `./.env.${process.env.NODE_ENV}`

@@ -1,5 +1,5 @@
-import {uploader} from "../utils/AwsS3.js"
-import {AuthenticationError} from "apollo-server-express";
+const {uploader} = "../utils/AwsS3.js"
+const {AuthenticationError} = 'apollo-server-express'
 
 export default {
 

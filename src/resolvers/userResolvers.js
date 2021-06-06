@@ -1,6 +1,6 @@
-import {AuthenticationError} from 'apollo-server-express'
-import bcrypt from "bcrypt"
-import jwt from "../utils/jwt"
+const {AuthenticationError} = 'apollo-server-express'
+const {bcrypt} = "bcrypt"
+const {jwt} = "../utils/jwt"
 
 export default {
     Query: {
