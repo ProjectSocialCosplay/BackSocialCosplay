@@ -6,7 +6,7 @@ const {uuid} = require('./utils/tools');
 const {mongodbconfig} = require('./config/db');
 const bodyParser = require("body-parser");
 require('dotenv').config();
-const schemas = require('./schemas');
+const {test} = require('./schemas');
 const resolvers = require('./resolvers');
 
 const userModel = require('./models/userModel');
@@ -32,7 +32,7 @@ app.use(
 );
 
 const server = new ApolloServer({
-    typeDefs: schemas,
+    typeDefs: test,
     resolvers,
     context: async ({req}) => {
         if (req) {
