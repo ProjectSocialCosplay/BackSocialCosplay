@@ -2,6 +2,7 @@
   "name": "socialcosplayer",
   "version": "1.0.0",
   "description": "Api back cosplay social network",
+  "type": "module",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
