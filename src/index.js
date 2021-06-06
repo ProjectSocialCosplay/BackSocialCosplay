@@ -4,7 +4,7 @@ const {ApolloServer, ApolloError} = require('apollo-server-express')
 const jwt = require('./utils/jwt');
 const {uuid} = require('./utils/tools');
 const {mongodbconfig} = require('./config/db');
-const  bodyParser = "body-parser";
+const bodyParser = require("body-parser");
 require('dotenv').config();
 const schemas = require('./schemas');
 const resolvers = require('./resolvers');
@@ -14,7 +14,7 @@ const postModel = require('./models/postModel');
 const commentModel = require('./models/commentModel');
 const likeModel = require('./models/likeModel');
 const pictureModel = require('./models/pictureModel');
-const followModel = ('./models/followModel');
+const followModel = require('./models/followModel');
 
 
 const app = express();
