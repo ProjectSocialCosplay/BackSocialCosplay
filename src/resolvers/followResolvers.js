@@ -1,4 +1,4 @@
-const {AuthenticationError} = 'apollo-server-express'
+const {AuthenticationError} = require('apollo-server-express')
 
 export default {
     Mutation: {

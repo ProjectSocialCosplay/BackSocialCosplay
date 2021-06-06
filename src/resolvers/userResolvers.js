@@ -1,6 +1,6 @@
-const {AuthenticationError} = 'apollo-server-express'
-const {bcrypt} = "bcrypt"
-const {jwt} = "../utils/jwt"
+const {AuthenticationError} = require('apollo-server-express')
+const {bcrypt} = require("bcrypt");
+const {jwt} = require("../utils/jwt");
 
 export default {
     Query: {

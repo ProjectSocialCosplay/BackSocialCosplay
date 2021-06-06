@@ -1,10 +1,10 @@
-import {gql} from 'apollo-server-express';
-import userSchema from './userSchema';
-import postSchema from './postSchema';
-import pictureSchema from "./pictureSchema";
-import likeSchema from './likeSchema';
-import commentSchema from './commentSchema';
-import followSchema from './followSchema';
+const {gql} =  require('apollo-server-express');
+const userSchema =  require('./userSchema');
+const postSchema =  require('./postSchema');
+const pictureSchema =  require ('./pictureSchema');
+const likeSchema =  require('./likeSchema');
+const commentSchema =  require('./commentSchema');
+const followSchema =  require('./followSchema');
 
 const linkSchema = gql`
     scalar Date

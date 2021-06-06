@@ -1,5 +1,5 @@
-const {uploader} = "../utils/AwsS3.js"
-const {AuthenticationError} = 'apollo-server-express'
+const {uploader} = require("../utils/AwsS3.js");
+const {AuthenticationError} = require('apollo-server-express')
 
 export default {
 
