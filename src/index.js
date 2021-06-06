@@ -52,7 +52,7 @@ const server = new ApolloServer({
         }
     },
     formatError(err) {
-        if (process.env.NODE_ENV !== require(test') {
+        if (process.env.NODE_ENV !== require('test')) {
             console.log(uuid() + ": " + err.message)
         }
         return {
