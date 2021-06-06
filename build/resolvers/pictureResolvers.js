@@ -19,7 +19,7 @@ var _default = {
   Mutation: {
     uploadProfileImage: function () {
       var _uploadProfileImage = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(parent, _ref, _ref2, info) {
-        var base64str, _ref2$models, userModel, pictureModel, userInfo, alwreadyExist, _data, data, pictureRes, user;
+        var base64str, _ref2$models, userModel, pictureModel, userInfo, data, pictureRes, user;
 
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
@@ -37,66 +37,25 @@ var _default = {
 
               case 4:
                 _context.next = 6;
-                return pictureModel.find({
-                  author: userInfo._id
-                });
+                return _AwsS.uploader.upload(base64str, 'users/avatars');
 
               case 6:
-                alwreadyExist = _context.sent;
+                data = _context.sent;
 
-                if (!alwreadyExist) {
-                  _context.next = 21;
+                if (!data) {
+                  _context.next = 18;
                   break;
                 }
 
                 _context.next = 10;
-                return _AwsS.uploader.deleteObject(alwreadyExist.key, 'users/avatars');
-
-              case 10:
-                _data = _context.sent;
-
-                if (!_data) {
-                  _context.next = 21;
-                  break;
-                }
-
-                _context.prev = 12;
-                _context.next = 15;
-                return pictureModel.find({
-                  author: userInfo._id
-                }).deleteMany();
-
-              case 15:
-                _context.next = 21;
-                break;
-
-              case 17:
-                _context.prev = 17;
-                _context.t0 = _context["catch"](12);
-                console.log(_context.t0.message);
-                throw new Error('Error Update Profile');
-
-              case 21:
-                _context.next = 23;
-                return _AwsS.uploader.upload(base64str, 'users/avatars');
-
-              case 23:
-                data = _context.sent;
-
-                if (!data) {
-                  _context.next = 35;
-                  break;
-                }
-
-                _context.next = 27;
                 return pictureModel.create({
                   key: data.key,
                   author: userInfo._id
                 });
 
-              case 27:
+              case 10:
                 pictureRes = _context.sent;
-                _context.next = 30;
+                _context.next = 13;
                 return userModel.updateOne({
                   _id: pictureRes.author
                 }, {
@@ -105,25 +64,25 @@ var _default = {
                   throw new Error(e.message);
                 });
 
-              case 30:
-                _context.next = 32;
+              case 13:
+                _context.next = 15;
                 return userModel.findOne({
                   _id: userInfo._id
                 }).exec();
 
-              case 32:
+              case 15:
                 user = _context.sent;
                 console.log(user);
                 return _context.abrupt("return", {
                   'key': data.key
                 });
 
-              case 35:
+              case 18:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[12, 17]]);
+        }, _callee);
       }));
 
       function uploadProfileImage(_x, _x2, _x3, _x4) {
