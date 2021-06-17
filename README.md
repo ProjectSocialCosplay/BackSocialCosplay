@@ -1,56 +1,73 @@
 # Cosplay (Back-end)
 
-### 1. Présentation du projet
+We therefore decided to go on a mobile application of "Multi-use social network intended for the community of Cosplayers" which brings together several services including:
 
-#### Situation déclenchante
-Il nous a été demandé de produire un service dans le cadre de nos études pour la validation de notre dernière année. Pour ce faire, un tirage au sort a été fait, trois mots choisis au hasard (ancêtre, coq, uniforme) ainsi qu’une cible également choisie au hasard (télévor). Le mot uniforme nous a beaucoup inspirés, couplé au mot télévor . En effet nous somme tous fan de pop culture et l’idée de créer un espace pour passionnés nous est venu naturellement. Traiter le sujet du Cosplay nous est donc venu comme une évidence.
+- Sharing of content, photos, videos of cosplays (DIY sharing).
+- Private sale of accessories or costumes.
+- Sharing of upcoming events, information point.
 
-#### Situation initial
-La communauté des Cosplayer n’a aucune plateforme qui leurs est dédiés pour le partage de leurs créations et de rencontre entre fans, alors que c’est une communauté qui regroupe beaucoup de passionnées.
-
-#### Le projet
-Nous avons donc décidé de partir sur une application mobile de "Réseau social multi-usage destiné à la communauté des Cosplayers" qui regroupe plusieurs services dont :
-
-    - Partage de contenues,  de photo, vidéos des cosplays (partage DIY).
-	- Vente de particulier à particulier d'accessoirs ou du costumes.
-	- Partage d'événements à venir, point d’information.
-
-#### Situation final
-Notre application vas permettre à une communauté de se regrouper autour de la même passion qui est le Cosplay.
-
-### 2. Status du projet
-
-Cosplay est un projet en cours de développement, pour l'instant, pour la V1, seule la partie réseau social est disponible, il est possible de se créer un compte, partager du contenu, suivre ses amis.
-
-Suite aux mesures sanitaires, nous avons décidé de mettre en attente le partage d'événements, car les regroupements de plus de 10 personnes dont encore interdit, néanmoins cette partie-là à bien été codée et pourras être implémentée par la suite.
-
-Pour finir, nous n'avons pas encore eu le temps de démarrer la partie vente privée de particulier à particulier, mais ce sujet fut mûrement réfléchi et sera implémenté par la suite.
-
-### 3. Instructions pour le lancement du projet Cosplay
+It's an NodeJS API in relation with an React-Native application. https://github.com/ProjectSocialCosplay/Front
 
 
-Pour récupérer la partie Back-end du projet, veuillez lancer cette commande sur votre invite de commande :
+### Status of the projet
 
-`https://github.com/ProjectSocialCosplay/BackSocialCosplay.git`
+Cosplay is a project under development, for the moment, for V1, only the social network part is available, it is possible to create an account, share content, follow your friends.
 
-Pour faciliter le lancement du projet nous avons choisi d'utiliser Docker (veillez à installer Docker sur votre environnement de travail.), rendez vous à la racine du projet et taper cette commande, cela vous permettra de démarrer le serveur :
+Following the health measures, we decided to put the sharing of events on hold, because groups of more than 10 people are still prohibited, however this part has been coded and could be implemented later.
 
-`docker-compose up --build`
+Finally, we have not yet had time to start the private sales from person to person, but this subject has been carefully considered and will be implemented later.
 
-Pour faire des requêtes, rendez-vous sur :
 
-`http://localhost:7000/graphql`
+### Cloning the repository
 
-Pour récupérer la partie Front-End du projet, veuillez vous rendre sur ce lien :
+Clone this project into your working directory. We recommend always running the master branch as it was frequent contributions.
 
-`https://github.com/ProjectSocialCosplay/Front`
+    $ git clone https://github.com/ProjectSocialCosplay/BackSocialCosplay.git
+    Cloning into 'BackSocialCosplay'
+    remote: Enumerating objects: 1123, done.
+    remote: Counting objects: 100% (1123/1123), done.
+    remote: Compressing objects: 100% (690/690), done.
+    remote: Total 1123 (delta 719), reused 774 (delta 403), pack-reused 0
+    Receiving objects: 100% (1123/1123), 562.67 Kio | 3.88 Mio/s, done.
+    Resolving deltas: 100% (719/719), done.
 
-### 4. Technologies utilisées
 
-Code : NodeJs
+### Install with Docker
 
-Base de donnée : MongoDB
+    $ docker-compose up --build
+    mongo-express is up-to-date
+    dbsocial is up-to-date
+    Recreating Back-SocialCosplay ... done
+    Attaching to mongo-express, dbsocial, Back-SocialCosplay...
 
-Requêtes : Graphql
 
-Tests : Jest
+### Tests with Jest
+
+    npx jest
+
+
+### Check requests with GraphQL
+
+    http://localhost:7000/graphql
+
+
+### Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+
+### License
+
+MIT [here](LICENSE)
+
+
+### Code of conduct
+
+Code of Conduct [here](CODE_OF_CONDUCT.md) By participating in this project you agree to abide by its terms.
+
+### Authors
+
+Cem Buyuk [a link](https://github.com/BuyukCem)
+Linda Dogan [a link](https://github.com/Cerenda5)
+Adrien George [a link](https://github.com/AdrienGeoorge)
+Delphine Lepront [a link](https://github.com/delphinelepront)
