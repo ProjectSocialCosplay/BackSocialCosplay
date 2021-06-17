@@ -58,16 +58,16 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ### License
 
-MIT [here](LICENSE)
+[MIT](LICENSE)
 
 
 ### Code of conduct
 
-Code of Conduct [here](CODE_OF_CONDUCT.md) By participating in this project you agree to abide by its terms.
+[Code of Conduct](CODE_OF_CONDUCT.md) By participating in this project you agree to abide by its terms.
 
 ### Authors
 
-Cem Buyuk [a link](https://github.com/BuyukCem)
-Linda Dogan [a link](https://github.com/Cerenda5)
-Adrien George [a link](https://github.com/AdrienGeoorge)
-Delphine Lepront [a link](https://github.com/delphinelepront)
+[Cem Buyuk](https://github.com/BuyukCem)
+[Linda Dogan](https://github.com/Cerenda5)
+[Adrien George](https://github.com/AdrienGeoorge)
+[Delphine Lepront](https://github.com/delphinelepront)
