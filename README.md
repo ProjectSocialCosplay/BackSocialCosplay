@@ -1,13 +1,9 @@
-# BackSocialCosplay
-
-
-# Cosplay
+# Cosplay (Back-end)
 
 ### 1. Présentation du projet
 
 #### Situation déclenchante
 Il nous a été demandé de produire un service dans le cadre de nos études pour la validation de notre dernière année. Pour ce faire, un tirage au sort a été fait, trois mots choisis au hasard (ancêtre, coq, uniforme) ainsi qu’une cible également choisie au hasard (télévor). Le mot uniforme nous a beaucoup inspirés, couplé au mot télévor . En effet nous somme tous fan de pop culture et l’idée de créer un espace pour passionnés nous est venu naturellement. Traiter le sujet du Cosplay nous est donc venu comme une évidence.
-
 
 #### Situation initial
 La communauté des Cosplayer n’a aucune plateforme qui leurs est dédiés pour le partage de leurs créations et de rencontre entre fans, alors que c’est une communauté qui regroupe beaucoup de passionnées.
