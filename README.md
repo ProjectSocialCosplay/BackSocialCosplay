@@ -32,7 +32,7 @@ Clone this project into your working directory. We recommend always running the 
     Resolving deltas: 100% (719/719), done.
 
 
-### Install with Docker
+### Start project with Docker
 
     $ docker-compose up --build
     mongo-express is up-to-date
@@ -41,10 +41,8 @@ Clone this project into your working directory. We recommend always running the 
     Attaching to mongo-express, dbsocial, Back-SocialCosplay...
 
 
-### Tests with Jest
-
-    npx jest
-
+### Run tests with Jest
+    npm run test
 
 ### Check requests with GraphQL
 
@@ -52,7 +50,6 @@ Clone this project into your working directory. We recommend always running the 
 
 
 ### Contributing
-
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 
